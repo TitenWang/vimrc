@@ -101,6 +101,7 @@ Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 "配色方案
@@ -156,8 +157,12 @@ nmap <silent> <leader>sw :FSHere<cr>
 "使用ctrlsf.vim插件在工程内全局查找光标所在关键字，sp代表search in project
 nnoremap <leader>sp :CtrlSF<cr>
 
-"s注释相关
+"注释相关
 "NERD COmmenter插件配置
+"<leader>cc:选中文本加注释 <leader>cu:选中文本去注释
+"<leader>c<space>  加上/解开注释, 智能判断；<leader>cy   先复制,再注释(p可以进行黏贴)
+" 注释的时候自动加个空格, 强迫症必配
+let g:NERDSpaceDelims=1
 
 "NERDtree插件配置
 "开启nerdtree
