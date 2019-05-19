@@ -132,6 +132,11 @@ Plug 'mhinz/vim-signify'
 Plug 'skywind3000/vim-preview'
 Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop']}
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'Chiel92/vim-autoformat'
+"Plug 'vim-scripts/luainspect.vim'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-lua-ftplugin'
 call plug#end()
 
 "配色方案
@@ -258,6 +263,16 @@ let g_tagbar_type_cpp = {
      \ }
 \ }
 
+let g:tagbar_type_lua = {
+  \ 'ctagstype' : 'lua',
+  \ 'kinds' : [
+    \ 'm:modules:0:0',
+    \ 'f:functions:0:1',
+    \ 'v:locals:0:0'
+  \ ],
+  \ 'sort' : 0
+\ }
+
 "UltiSnips插件配置，该插件需要python支持
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
@@ -324,7 +339,8 @@ let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14' 
 let g:ale_c_cppcheck_options = '' 
 let g:ale_cpp_cppcheck_options = ''
-"leaderf中mru、tag、buffer、function等常用操作配置
+
+"Leaderf插件配置
 let g:Lf_ShortcutF = '<c-p>' 
 let g:Lf_ShortcutB = '<m-n>' 
 noremap <c-m> :LeaderfMru<cr> 
@@ -394,6 +410,38 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 if !isdirectory(s:vim_tags) 
     silent! call mkdir(s:vim_tags, 'p') 
 endif
+
+"rainbow_parentheses.vim插件配置
+let g:rbpt_colorpairs = [ 
+    \ ['brown', 'RoyalBlue3'], 
+    \ ['Darkblue', 'SeaGreen3'], 
+    \ ['darkgray', 'DarkOrchid3'], 
+    \ ['darkgreen', 'firebrick3'], 
+    \ ['darkcyan', 'RoyalBlue3'], 
+    \ ['darkred', 'SeaGreen3'], 
+    \ ['darkmagenta', 'DarkOrchid3'], 
+    \ ['brown', 'firebrick3'], 
+    \ ['gray', 'RoyalBlue3'], 
+    \ ['darkmagenta', 'DarkOrchid3'], 
+    \ ['Darkblue', 'firebrick3'], 
+    \ ['darkgreen', 'RoyalBlue3'], 
+    \ ['darkcyan', 'SeaGreen3'], 
+    \ ['darkred', 'DarkOrchid3'], 
+    \ ['red', 'firebrick3'], 
+\ ] 
+let g:rbpt_max = 16 
+let g:rbpt_loadcmd_toggle = 0 
+au VimEnter * RainbowParenthesesToggle 
+au Syntax * RainbowParenthesesLoadRound 
+au Syntax * RainbowParenthesesLoadSquare 
+au Syntax * RainbowParenthesesLoadBraces
+
+"vim-autoformat插件配置
+nnoremap <leader>af :Autoformat<CR> 
+let g:autoformat_autoindent = 0 
+let g:autoformat_retab = 0 
+let g:autoformat_remove_trailing_spaces = 0
+
 
 "filetype相关
 """"""""""""""""""""""""""""""
