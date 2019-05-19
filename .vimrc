@@ -93,15 +93,18 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'wesleyche/SrcExpl'
-Plug 'vim-scripts/indexer.tar.gz'
-Plug 'vim-scripts/DfrankUtil'
-Plug 'vim-scripts/vimprj'
+"Plug 'vim-scripts/indexer.tar.gz'
+"Plug 'vim-scripts/DfrankUtil'
+"Plug 'vim-scripts/vimprj'
 Plug 'fatih/vim-go',{ 'do': ':GoUpdateBinaries'}
 Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/nerdcommenter'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mhinz/vim-signify'
 call plug#end()
 
 "配色方案
@@ -166,7 +169,7 @@ let g:NERDSpaceDelims=1
 
 "NERDtree插件配置
 "开启nerdtree
-nmap <leader>fl :NERDTreeToggle<cr>
+nmap <leader>lf :NERDTreeToggle<cr>
 "设置NERDTree窗口宽度
 let NERDTreeWinSize=32
 "设置NERDTree位置
@@ -190,7 +193,7 @@ map <c-s-tab> :MBEbp<cr>
 "设置tagbar子窗口的位置
 let tagbar_left=1
 "设置显示/隐藏标签列表子窗口
-nnoremap <leader>tl :TagbarToggle<cr>
+nnoremap <leader>lt :TagbarToggle<cr>
 "设置标签c子窗口的宽度
 let tagbar_width=32
 "tagbar子窗口不显示冗余帮助信息
@@ -285,9 +288,10 @@ let g:SrcExpl_nextDefKey = "<F4>"
 
 "基于标签的代码导航
 "设置插件 indexer 调用 ctags 的参数
+"indexer、DfrankUtil和vimprj三个插件共同完成的功能被vim-gutentags替代，这里暂且保留.
 "默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v
 "默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl
-let g:indexer_ctagsCommandLineOptions="--c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
+"let g:indexer_ctagsCommandLineOptions="--c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
 "正向遍历同名标签，先按Ctrl-]，再执行下面两个
 nmap <Leader>tn :tnext<CR>
 "反向遍历同名标签
@@ -297,6 +301,10 @@ nmap <Leader>tp :tprevious<CR>
 let g:go_fmt_command = "goimports"
 
 "ale插件配置
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
 "始终开启标志列
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
@@ -306,7 +314,7 @@ let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+"普通模式下，ap前往上一个错误或警告，an前往下一个错误或警告
 nmap ap <Plug>(ale_previous_wrap)
 nmap an <Plug>(ale_next_wrap)
 ""<Leader>s触发/关闭语法检查
@@ -314,7 +322,9 @@ nmap <Leader>al :ALEToggle<cr>
 "<Leader>d查看错误或警告的详细信息
 nmap <Leader>ad :ALEDetail<cr>
 "文件内容发生变化时不进行检查
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
 "打开文件时不进行检查
 let g:ale_lint_on_enter = 0
 let g:ale_linters = {
@@ -324,6 +334,29 @@ let g:ale_linters = {
 \   'c++': ['clang'],
 \   'c': ['clang']
 \}
+"linter参数设置
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99' 
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14' 
+let g:ale_c_cppcheck_options = '' 
+let g:ale_cpp_cppcheck_options = ''
+"leaderf中mru、tag、buffer、function等常用操作配置
+let g:Lf_ShortcutF = '<c-p>' 
+let g:Lf_ShortcutB = '<m-n>' 
+noremap <c-n> :LeaderfMru<cr> 
+noremap <m-p> :LeaderfFunction!<cr> 
+noremap <m-n> :LeaderfBuffer<cr> 
+noremap <m-m> :LeaderfTag<cr> 
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' } 
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git'] 
+let g:Lf_WorkingDirectoryMode = 'Ac' 
+let g:Lf_WindowHeight = 0.30 
+"let g:Lf_CacheDirectory = expand('~/.vim/cache') 
+let g:Lf_ShowRelativePath = 0 
+let g:Lf_HideHelp = 1  
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+
+"vim-signify插件配置
+set signcolumn=yes
 
 "YCM插件配置
 
@@ -359,6 +392,23 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_collect_identifiers_from_tags_files=1
 set tags+=~/.indexer_files_tags/stdcpp.tags
 set tags+=~/.indexer_files_tags/stdcppv1.tags
+
+"vim-gutentags插件配置
+"gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags' 
+"将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录 
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags 
+"配置 ctags 的参数 
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q'] 
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px'] 
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px'] 
+"检测 ~/.cache/tags 不存在就新建 
+if !isdirectory(s:vim_tags) 
+    silent! call mkdir(s:vim_tags, 'p') 
+endif
 
 "filetype相关
 """"""""""""""""""""""""""""""
