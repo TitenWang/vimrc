@@ -131,6 +131,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
 Plug 'skywind3000/vim-preview'
 Plug 'Shougo/echodoc.vim'
+Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop']}
 call plug#end()
 
 "配色方案
@@ -150,6 +151,11 @@ set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_theme="dark"
 let g:airline#extensions#tabline#enabled = 1
+
+"asyncrun.vim插件配置
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
+let g:asyncrun_open = 8
+let g:asyncrun_save = 2
 
 "vim-preview插件配置
 noremap <silent><space>g, :PreviewTag<cr>
