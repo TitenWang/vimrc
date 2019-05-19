@@ -40,6 +40,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+"调整windows大小
+noremap <silent><space>= :resize +3<cr>
+noremap <silent><space>- :resize -3<cr>
+noremap <silent><space>, :vertical resize -3<cr>
+noremap <silent><space>. :vertical resize +3<cr>
+
 "拼写检查
 "开启或关闭拼写检查
 map <leader>ss :setlocal spell!<cr>
@@ -63,7 +69,6 @@ set backspace=indent,eol,start
 "vim自身命令行z模式智能补全
 set wildmenu
 
-
 "总是显示状态栏
 set laststatus=2
 "显示光标当前位置
@@ -78,47 +83,6 @@ set hlsearch
 
 "禁止折行
 set nowrap
-
-
-"插件安装
-call plug#begin('~/.vim/plugged')
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'dyng/ctrlsf.vim'
-Plug 'fholgado/minibufexpl.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'wesleyche/SrcExpl'
-"Plug 'vim-scripts/indexer.tar.gz'
-"Plug 'vim-scripts/DfrankUtil'
-"Plug 'vim-scripts/vimprj'
-Plug 'fatih/vim-go',{ 'do': ':GoUpdateBinaries'}
-Plug 'w0rp/ale'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Valloric/YouCompleteMe'
-Plug 'scrooloose/nerdcommenter'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'mhinz/vim-signify'
-call plug#end()
-
-"配色方案
-set background=dark
-set t_Co=256
-"colorscheme solarized
-colorscheme molokai
-
-"airline插件配置
-"设置状态栏主题风格
-let g:airline_powerline_fonts = 1
-let g:airline_theme="dark"
-let g:airline#extensions#tabline#enabled = 1
-
 
 "开启语法高亮功能
 syntax enable
@@ -136,6 +100,60 @@ set shiftwidth=4
 "让vim把连续数量的空格视为一个制表符
 set softtabstop=4
 
+"代码折叠
+"基于缩进或者语法进行代码折叠
+"set foldmethod=indent
+set foldmethod=syntax
+"启动vim时关闭z代码折叠
+set nofoldenable
+
+
+"插件安装
+call plug#begin('~/.vim/plugged')
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'dyng/ctrlsf.vim'
+Plug 'fholgado/minibufexpl.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go',{ 'do': ':GoUpdateBinaries'}
+Plug 'w0rp/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mhinz/vim-signify'
+Plug 'skywind3000/vim-preview'
+call plug#end()
+
+"配色方案
+set background=dark
+set t_Co=256
+"colorscheme solarized
+colorscheme molokai
+
+"airline插件配置
+"设置状态栏主题风格
+let g:airline_powerline_fonts = 1
+let g:airline_theme="dark"
+let g:airline#extensions#tabline#enabled = 1
+
+"vim-preview插件配置
+noremap <silent><space>g, :PreviewTag<cr>
+noremap <silent><space>g. :PreviewClose<cr>
+nnoremap <silent><c-a> :PreviewSignature<cr>
+inoremap <silent><c-a> <c-\><c-o>:PreviewSignature<cr>
+noremap <c-u> :PreviewScroll -1<cr>
+noremap <c-d> :PreviewScroll +1<cr>
+inoremap <c-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <c-d> <c-\><c-o>:PreviewScroll +1<cr>
+
 "indent_guides插件配置
 "随vim自启动
 let g:indent_guides_enable_on_vim_startup=1
@@ -146,12 +164,6 @@ let g:indent_guides_guide_size=1
 "快捷键i开/关缩进可视化
 nmap <silent> <leader>i <Plug>IndentGuidesToggle
 
-"代码折叠
-"基于缩进或者语法进行代码折叠
-"set foldmethod=indent
-set foldmethod=syntax
-"启动vim时关闭z代码折叠
-set nofoldenable
 
 "接口和实现之间的切换（*.cpp和*.h之间的切换）
 nmap <silent> <leader>sw :FSHere<cr>
@@ -245,53 +257,13 @@ set undodir=~/.undo_history/
 set undofile
 " 保存快捷键
 map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-" " 恢复快捷键
+"恢复快捷键
 map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 
-"SrcExpl插件配置
-"开启或关闭SrcExpl
-nmap <F8> :SrcExplToggle<cr>
-"设置SrcExpl窗口高度
-let g:SrcExpl_winHeight = 4
-"设置SrcExplg窗口更新频率（ms）
-let g:SrcExpl_refreshTime = 100
-"设置进入某一特定定义的上下文的快捷键
-let g:SrcExpl_jumpKey = "<ENTER>"
-"设置从上下文定义中返回的快捷键
-let g:SrcExpl_gobackKey = "<SPACE>"
-"避免与其他插件的冲突
-let g:SrcExpl_pluginList = [
-   \ "__Tag_List__",
-   \ "_NERD_tree_",
-   \ "Source_Explorer"
-\ ]
-"colorscheme
-let g:SrcExpl_colorSchemeList = [
-   \ "Red",
-   \ "Cyan",
-   \ "Green",
-   \ "Yellow",
-   \ "Magenta"
-\ ]
-"设置SrcExpl进行本地定义搜索
-let g:SrcExpl_searchLocalDef = 1
-let g:SrcExpl_nestedAutoCmd = 1
-let g:SrcExpl_isUpdateTags = 0
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-"手动更新tags
-let g:SrcExpl_updateTagsKey = "<F12>"
-"在有多个定义的情况下，F3显示前一个定义，F4显示后一个定义
-let g:SrcExpl_prevDefKey = "<F3>"
-let g:SrcExpl_nextDefKey = "<F4>"
 
 "代码导航
 
 "基于标签的代码导航
-"设置插件 indexer 调用 ctags 的参数
-"indexer、DfrankUtil和vimprj三个插件共同完成的功能被vim-gutentags替代，这里暂且保留.
-"默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v
-"默认 --fields=+iaS 不满足 YCM 要求，需改为 --fields=+iaSl
-"let g:indexer_ctagsCommandLineOptions="--c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
 "正向遍历同名标签，先按Ctrl-]，再执行下面两个
 nmap <Leader>tn :tnext<CR>
 "反向遍历同名标签
@@ -390,8 +362,8 @@ let g:ycm_seed_identifiers_with_syntax=1
 " 开启 YCM 标签引擎并引入所需要的tags文件，如c++标准库的等，生成相应文件的tags,用ctags工具，
 " 并根据实际情况设置路径，下面只是一个示例。
 let g:ycm_collect_identifiers_from_tags_files=1
-set tags+=~/.indexer_files_tags/stdcpp.tags
-set tags+=~/.indexer_files_tags/stdcppv1.tags
+set tags+=~/.cache/tags/stdcpp.tags
+set tags+=~/.cache/tags/stdcppv1.tags
 
 "vim-gutentags插件配置
 "gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归 
