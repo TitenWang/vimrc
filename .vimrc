@@ -314,10 +314,10 @@ let g:ale_cpp_cppcheck_options = ''
 "leaderf中mru、tag、buffer、function等常用操作配置
 let g:Lf_ShortcutF = '<c-p>' 
 let g:Lf_ShortcutB = '<m-n>' 
-noremap <c-n> :LeaderfMru<cr> 
-noremap <m-p> :LeaderfFunction!<cr> 
-noremap <m-n> :LeaderfBuffer<cr> 
-noremap <m-m> :LeaderfTag<cr> 
+noremap <c-m> :LeaderfMru<cr> 
+noremap <c-f> :LeaderfFunction<cr> 
+noremap <c-b> :LeaderfBuffer<cr> 
+noremap <c-t> :LeaderfTag<cr> 
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' } 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git'] 
 let g:Lf_WorkingDirectoryMode = 'Ac' 
