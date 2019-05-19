@@ -230,8 +230,7 @@ let g_tagbar_type_cpp = {
      \ }
 \ }
 
-"UltiSnips插件配置
-let g:UltiSnipsSnippetDirectories=["mysnippets"]
+"UltiSnips插件配置，该插件需要python支持
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
