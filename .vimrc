@@ -104,7 +104,7 @@ set softtabstop=4
 "基于缩进或者语法进行代码折叠
 "set foldmethod=indent
 set foldmethod=syntax
-"启动vim时关闭z代码折叠
+"启动vim时关闭代码折叠
 set nofoldenable
 
 
@@ -130,6 +130,7 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
 Plug 'skywind3000/vim-preview'
+Plug 'Shougo/echodoc.vim'
 call plug#end()
 
 "配色方案
@@ -137,6 +138,12 @@ set background=dark
 set t_Co=256
 "colorscheme solarized
 colorscheme molokai
+
+"echodoc.vim插件配置
+"启动vim时打开echodoc
+let g:echodoc_enable_at_startup = 1
+"关闭vim默认的模式显示
+set noshowmode
 
 "airline插件配置
 "设置状态栏主题风格
