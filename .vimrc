@@ -13,32 +13,35 @@ set ffs=unix,dos,mac
 set smarttab
 
 "定义快捷键到行首和行尾
-nmap LB ^
-nmap LE $
+noremap LB ^
+noremap LE $
+
+"定义从Insert模式退回到Normal模式的快捷键
+inoremap jk <esc>
 
 "将选中文本块复制到系统剪贴板
 vnoremap <leader>y "+y
 "将系统剪贴板内容粘贴至vim
-nmap <leader>p "+p
+noremap <leader>p "+p
 "定义快捷键关闭当前分割窗口
-nmap <leader>q :q<cr>
+noremap <leader>q :q<cr>
 "定义快捷键保存当前窗口内容
-nmap <leader>w :w<cr>
+noremap <leader>w :w<cr>
 "i定义快捷键保存所有窗口内容并退出vim
-nmap <leader>WQ :wa<cr>:q<cr>
+noremap <leader>WQ :wa<cr>:q<cr>
 "不做保存直接退出vim
-nmap <leader>Q :qa!<cr>
+noremap <leader>Q :qa!<cr>
 
 "跳至右、左，下、上方窗口
-nnoremap <leader>lw <C-W>l
-nnoremap <leader>hw <C-W>h
-nnoremap <leader>jw <C-W>j
-nnoremap <leader>kw <C-W>k
+nnoremap <leader>lw <c-w>l
+nnoremap <leader>hw <c-w>h
+nnoremap <leader>jw <c-w>j
+nnoremap <leader>kw <c-w>k
 
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
 
 "调整windows大小
 noremap <silent><space>= :resize +3<cr>
@@ -47,10 +50,10 @@ noremap <silent><space>, :vertical resize -3<cr>
 noremap <silent><space>. :vertical resize +3<cr>
 
 "开启或关闭拼写检查
-map <leader>ss :setlocal spell!<cr>
+noremap <leader>ss :setlocal spell!<cr>
 
 "定义快捷键在结对符之间跳转
-nmap <leader>M %
+noremap <leader>M %
 
 "让配置变更理解生效
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -201,15 +204,22 @@ let g:indent_guides_start_level=2
 "色块亮度
 let g:indent_guides_guide_size=1
 "快捷键i开/关缩进可视化
-nmap <silent> <leader>i <Plug>IndentGuidesToggle
+noremap <silent> <leader>i <Plug>IndentGuidesToggle
 
 
 "接口和实现之间的切换（*.cpp和*.h之间的切换）
-nmap <silent> <leader>sw :FSHere<cr>
+noremap <silent> <leader>sw :FSHere<cr>
 
 "ctrlsf.vim插件配置
 "使用ctrlsf.vim插件在工程内全局查找光标所在关键字，sp代表search in project
 nnoremap <leader>sp :CtrlSF<cr>
+vmap     <leader>sf <Plug>CtrlSFVwordPath
+vmap     <leader>sF <Plug>CtrlSFVwordExec
+nmap     <leader>sn <Plug>CtrlSFCwordPath
+nnoremap <leader>st :CtrlSFToggle<cr>
+inoremap <leader>st <Esc>:CtrlSFToggle<cr>
+let g:ctrlsf_ackprg = 'ag'
+
 
 "注释相关
 "NERD COmmenter插件配置
@@ -220,7 +230,7 @@ let g:NERDSpaceDelims=1
 
 "NERDtree插件配置
 "开启nerdtree
-nmap <leader>lf :NERDTreeToggle<cr>
+noremap <leader>lf :NERDTreeToggle<cr>
 "设置NERDTree窗口宽度
 let NERDTreeWinSize=32
 "设置NERDTree位置
@@ -376,6 +386,16 @@ let g:Lf_WindowHeight = 0.30
 let g:Lf_ShowRelativePath = 0 
 let g:Lf_HideHelp = 1  
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+
+"Leaderf rg配置
+"search word under cursor, the pattern is treated as regex, and enter normal mode directly
+noremap <leader>sg :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+"search word under cursor literally only in current buffer
+noremap <leader>sb :<C-U><C-R>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<CR>
+"search visually selected text literally, don't quit LeaderF after accepting an entry
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<CR>
+"recall last search. If the result window is closed, reopen it.
+noremap go :<C-U>Leaderf! rg --stayOpen --recall<CR>
 
 "vim-signify插件配置
 set signcolumn=yes
