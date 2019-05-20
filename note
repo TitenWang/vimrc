@@ -1,0 +1,96 @@
+Ubuntu下安装vim及其插件
+0、安装lua
+1、安装语言支持(python lua)
+    sudo apt-get install python-dev python3-dev liblua5.3-dev libncurses5-dev
+
+2、源码安装vim
+    git clone git@github.com:vim/vim.git
+    cd vim/
+    ./configure --with-features=huge --enable-python3interp --enable-pythoninterp
+    --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ --enable-rubyinterp 
+    --enable-luainterp --enable-perlinterp 
+    --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/  
+     --enable-multibyte --enable-cscope      --prefix=/usr/local/vim/
+    （--with-python3-config-dir --with-python-config-dir需根据具体情况而定）
+    make
+    make install
+    在/etc/profile文件最后添加一行：export PATH=$PATH:/usr/local/vim/bin
+    注：如果遇到了github不能用的情况，可能是需要增加ssh-key，步骤如下：
+        1）ssh-keygen -t rsa -C "TitenWang2013@hotmail.com" 一路回车直到结束。
+        2）拷贝home目录下.ssh目录下的面id_rsa.pub内容到github中的ssh-key中即可。
+        3）如果遇到了不能识别github hosts情况，就往/etc/hosts文件里面写入一行“52.74.223.119 github.com”
+3、检查是否有了对应的语言支持
+    :echo has('python') :echo has('lua')
+4、采用vim-plug来管理vim插件。
+    1）vim-plug的安装：$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    2）参考https://linux.cn/article-9751-1.html
+5、其余参考use_vim_as_ide。
+6、整个vim配置文件包括三个（拷贝的时候拷贝这三个）：.vimrc、.indexer_files、.ycm_extra_conf.py。其中indexer_files是indexer
+    插件的配置文件，用于配置每个工程对应的源代码文件，以便于ctags生成tag。因此在不同的环境中indexer_files
+    应根据具体情况做相应的修改。关于.indexer_files文件说明如下：
+    [foo] 
+    /data/workplace/foo/src/
+    其中[foo]指定工程名字，这个工程名字可以随便取，下面的路径是指定这个工程的源码所在目录。
+    这样，当你打开这个目录下面的任何一个文件时，就会在.indexer_files_tags这个目录下面生成一个名字和工程名字一样的tags文件，这样就实现了初步的定义跳转之类的。  
+（indexer插件被vim-gutentags取代后就不用.indexer_files了）
+7、由于插件ale使用了clang作为后端的语法检查，故需要安装clang，一般安装最新版本，可以下载预编译版本（对应系统的版本），解压放置到合适目录（一般是/usr/local）
+    （参考https://www.cnblogs.com/willaty/p/8024313.html只要看安装clang部分就行）。
+8、vim-go插件需要配合一些go相关的工具，先直接执行“:GoInstallBinaries”，如果不行，则上网直接下载，放在 $GOPATH/bin 目录下生成。
+9、airline相关的配置。除了vimrc中的配置，如果不行的话，就安装一下powerline的字体补丁（https://github.com/powerline/fonts）。
+10、ycm的配置（整体步骤参考use_vim_as_ide）： 
+    0）在vimrc中添加"Plug 'Valloric/YouCompleteMe'"，然后退出vim，再次进入执行：PlugInstall
+    1）安装依赖库：sudo apt-get install libboost-all-dev
+    2）接着先采用官网的简易安装方式（进入~/.vim/plugged/YouCompleteMe，然后执行python3 install.py --clang-completer  --go-completer），如果不行，再试着用下面的方式：
+    3）下载预编译版本的clang，解压至用户主目录下，并命名为clang_llvm。如要安装clang的话，就将该目录下内容拷贝至/usr或者/usr/local下面。
+    4）在用户主目录下执行：
+        mkdir ycm_build
+        cd ycm_build
+        cmake -G "Unix Makefiles" -DUSE_SYSTEM_BOOST=ON -DPATH_TO_LLVM_ROOT=~/clang+llvm/ .
+            ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp
+        cmake --build . --target ycm_core
+    5）添加vimrc配置
+    注：一般生成之后有ycm_core.so就可以了。
+11、ctags生成cpp标准库的tags命令，进入头文件目录，然后执行：sudo ctags -R --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v --fields=+liaS --extra=+q --language-force=c++ *
+12、ycm补全列表中如果有多个，可以用ctrl-n（或者tab）往下选择，ctrl-p（或者shift-tab）往上选择。
+13、.ycm_extra_conf.py中的flags中的手动添加的头文件路径需要根据系统的实际情况而定。
+14、关于下载vim-go所需要的一些工具，如goimports,gopls等直接下载会失败，但这些包在github上面有仓库，可以先下载下来，然后手工install
+    1)从github中下载git clone https://github.com/golang/tools.git $GOPATH/src/github.com/golang/tools
+        git clone https://github.com/golang/lint.git $GOPATH/src/github.com/golang/lint
+    2）然后拷贝到$GOPATH/src/golang.org/x/中，接着执行go install golang.org/x/lint/golint ;go install golang.org/x/tools/cmd/goimports
+    3）其余工具也可以采用类似方法。
+
+15、代码块不全插件ultisnips和vim-snippets安装，只要vimrc中的相关配置即可（也可以自定义代码块，参考https://www.jianshu.com/p/8538f456537c）。
+16、LeaderF插件的使用参考https://github.com/Yggdroot/LeaderF，开箱即用。从LeaderF中退出按<ESC>。
+17、vim-gutentags 需要靠定义的 project_root 里的标志，判断文件所在的工程，如果一个文件没有托管在 .git/.svn 中，gutentags 找不到工程目录的话，
+    就不会为该野文件生成 tags，这也很合理。想要避免的话，你可以在你的野文件目录中放一个名字为 .root 的空白文件，主动告诉 gutentags 这里就是工程目录。
+18、少用 CTRL-] 直接在当前窗口里跳转到定义，多使用 CTRL-W ] 用新窗口打开并查看光标下符号的定义，或者 CTRL-W } 使用 preview 窗口预览光标下符号的定义
+19、vim内嵌终端的用法（https://blog.csdn.net/zhangk9509/article/details/88232935）
+20、针对python的插件，需要安装一些后台引擎flake8和autopep8，（pip3 install flake8 ； pip3 install autopep8）
+
+注：bash显示状态（将下面内容拷贝进.bashrc，然后source .bashrc;）或者参考博客http://blog.sina.com.cn/s/blog_541866c50102uxfa.html
+function git_branch {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+    echo "("${ref#refs/heads/}") ";
+}
+
+function parse_git_dirty {
+    local git_status=$(git status 2> /dev/null | tail -n1) || $(git status 2> /dev/null | head -n 2 | tail -n1);
+    if [[ "$git_status" != "" ]]; then
+        local git_now; # 标示
+        if [[ "$git_status" =~ nothing\ to\ commit || "$git_status" =~  Your\ branch\ is\ up\-to\-date\ with ]]; then
+            git_now="=";
+        elif [[ "$git_status" =~ Changes\ not\ staged || "$git_status" =~ no\ changes\ added ]]; then
+            git_now='~';
+        elif [[ "$git_status" =~ Changes\ to\ be\ committed ]]; then #Changes to be committed
+            git_now='*';
+        elif [[ "$git_status" =~ Untracked\ files ]]; then
+            git_now="+";
+        elif [[ "$git_status" =~ Your\ branch\ is\ ahead ]]; then
+            git_now="#";
+        fi
+        echo "${git_now}";
+    fi
+}
+
+PS1="[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\033[0;31m\]\$(parse_git_dirty)\[\033[0m\]]\$ ";
+
