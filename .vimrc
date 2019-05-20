@@ -46,7 +46,6 @@ noremap <silent><space>- :resize -3<cr>
 noremap <silent><space>, :vertical resize -3<cr>
 noremap <silent><space>. :vertical resize +3<cr>
 
-"拼写检查
 "开启或关闭拼写检查
 map <leader>ss :setlocal spell!<cr>
 
@@ -66,7 +65,7 @@ set ignorecase
 set nocompatible
 set backspace=indent,eol,start
 
-"vim自身命令行z模式智能补全
+"vim自身命令行模式智能补全
 set wildmenu
 
 "总是显示状态栏
@@ -91,6 +90,13 @@ syntax on
 
 "自适应不同语言的智能缩进
 filetype indent on
+set autoindent
+set cindent
+set smartindent
+
+"大括号输入左括号回车，会补全右括号并换行缩进
+imap {<CR> {<CR>}<ESC>O
+
 "将制表符扩展为空格
 set expandtab
 "设置编辑时制表符占用的空格数
@@ -100,7 +106,6 @@ set shiftwidth=4
 "让vim把连续数量的空格视为一个制表符
 set softtabstop=4
 
-"代码折叠
 "基于缩进或者语法进行代码折叠
 "set foldmethod=indent
 set foldmethod=syntax
@@ -110,8 +115,7 @@ set nofoldenable
 
 "插件安装
 call plug#begin('~/.vim/plugged')
-Plug 'altercation/vim-colors-solarized'
-Plug 'tomasr/molokai'
+Plug 'flazz/vim-colorschemes'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'derekwyatt/vim-fswitch'
@@ -360,13 +364,12 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 set signcolumn=yes
 
 "YCM插件配置
-
 "跳转至声明
 nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
 "跳转至定义，只能是 #include 或已打开的文件
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 
-"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 " YCM 补全菜单配色
 " 菜单
@@ -441,6 +444,8 @@ nnoremap <leader>af :Autoformat<CR>
 let g:autoformat_autoindent = 0 
 let g:autoformat_retab = 0 
 let g:autoformat_remove_trailing_spaces = 0
+"保存时自动格式化代码，针对所有支持的文件
+au BufWrite * :Autoformat
 
 
 "filetype相关
