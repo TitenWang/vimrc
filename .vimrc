@@ -95,7 +95,7 @@ set cindent
 set smartindent
 
 "大括号输入左括号回车，会补全右括号并换行缩进
-imap {<CR> {<CR>}<ESC>O
+imap {<cr> {<cr>}<esc>O
 
 "将制表符扩展为空格
 set expandtab
@@ -111,6 +111,23 @@ set softtabstop=4
 set foldmethod=syntax
 "启动vim时关闭代码折叠
 set nofoldenable
+
+"vim标签相关快捷键
+noremap <silent><tab>m :tabnew<cr> 
+noremap <silent><tab>e :tabclose<cr> 
+noremap <silent><tab>n :tabn<cr> 
+noremap <silent><tab>p :tabp<cr>  
+noremap <silent><leader>1 :tabn 1<cr> 
+noremap <silent><leader>2 :tabn 2<cr> 
+noremap <silent><leader>3 :tabn 3<cr> 
+noremap <silent><leader>4 :tabn 4<cr> 
+noremap <silent><leader>5 :tabn 5<cr> 
+noremap <silent><leader>6 :tabn 6<cr> 
+noremap <silent><leader>7 :tabn 7<cr> 
+noremap <silent><leader>8 :tabn 8<cr> 
+noremap <silent><leader>9 :tabn 9<cr> 
+noremap <silent><leader>0 :tabn 10<cr> 
+noremap <silent><s-tab> :tabnext<cr> 
 
 
 "插件安装
