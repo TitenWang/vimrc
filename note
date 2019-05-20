@@ -66,6 +66,9 @@ Ubuntu下安装vim及其插件
 18、少用 CTRL-] 直接在当前窗口里跳转到定义，多使用 CTRL-W ] 用新窗口打开并查看光标下符号的定义，或者 CTRL-W } 使用 preview 窗口预览光标下符号的定义
 19、vim内嵌终端的用法（https://blog.csdn.net/zhangk9509/article/details/88232935）
 20、针对python的插件，需要安装一些后台引擎flake8和autopep8，（pip3 install flake8 ； pip3 install autopep8）
+21、tools_cursor目前只能时从右窗口滚动查阅做窗口内容。
+22、ctrlsf需要安装工具ag。（参考https://catdoc.iteye.com/blog/2162402）或者ctrlsf这个插件可以用leaderf的rg子命令来替代（leaderf rg需要下载rg这个工具，
+    但是在github上面下载很慢），如果有rg的话，就用leaderf rg来替代ctrlsf，如果只有ag的话，就用ctrlsf。
 
 注：bash显示状态（将下面内容拷贝进.bashrc，然后source .bashrc;）或者参考博客http://blog.sina.com.cn/s/blog_541866c50102uxfa.html
 function git_branch {
