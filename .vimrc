@@ -166,8 +166,8 @@ call plug#end()
 "配色方案
 set background=dark
 set t_Co=256
-"colorscheme solarized
-colorscheme molokai
+"colorscheme molokai
+colorscheme hybrid
 
 "echodoc.vim插件配置
 "启动vim时打开echodoc
@@ -220,8 +220,6 @@ nnoremap <leader>st :CtrlSFToggle<cr>
 inoremap <leader>st <Esc>:CtrlSFToggle<cr>
 let g:ctrlsf_ackprg = 'ag'
 
-
-"注释相关
 "NERD COmmenter插件配置
 "<leader>cc:选中文本加注释 <leader>cu:选中文本去注释
 "<leader>c<space>  加上/解开注释, 智能判断；<leader>cy   先复制,再注释(p可以进行黏贴)
@@ -242,7 +240,6 @@ let NERDTreeMinimalUI=1
 "删除文件时自动删除对应的buffer
 let NERDTreeAutoDeleteBuffer=1
 
-"多文档编辑配置
 "MiniBufExplorer插件配置
 "显示/隐藏MiniBufExplorer
 map <leader>bl :MBEToggle<cr>
@@ -319,8 +316,6 @@ map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
 "恢复快捷键
 map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
 
-
-"代码导航
 
 "基于标签的代码导航
 "正向遍历同名标签，先按Ctrl-]，再执行下面两个
