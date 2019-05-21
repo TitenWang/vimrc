@@ -159,6 +159,8 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'dyng/ctrlsf.vim'
 Plug 'fholgado/minibufexpl.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go',{ 'do': ':GoUpdateBinaries'}
@@ -257,12 +259,30 @@ let NERDTreeMinimalUI=1
 "删除文件时自动删除对应的buffer
 let NERDTreeAutoDeleteBuffer=1
 
+"vim-nerdtree-tabs插件配置
+"设置打开vim的时候默认打开目录树
+let g:nerdtree_tabs_open_on_console_startup=1
+
+"nerdtree-git-plugin插件配置
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+\}
+
 "MiniBufExplorer插件配置
 "显示/隐藏MiniBufExplorer
 map <leader>bl :MBEToggle<cr>
 "buffer切换快捷键
-map <c-tab> :MBEbn<cr>
-map <c-s-tab> :MBEbp<cr>
+noremap <leader>bn :bn<cr>
+noremap <leader>bp :bp<cr>
 
 "tagbar插件配置
 "设置tagbar子窗口的位置
