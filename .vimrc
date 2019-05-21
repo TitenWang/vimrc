@@ -38,6 +38,7 @@ nnoremap <leader>hw <c-w>h
 nnoremap <leader>jw <c-w>j
 nnoremap <leader>kw <c-w>k
 
+"c-j c-k c-h c-l后续用于扩展其他插件命令
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-h> <c-w>h
@@ -132,6 +133,22 @@ noremap <silent><leader>9 :tabn 9<cr>
 noremap <silent><leader>0 :tabn 10<cr> 
 noremap <silent><s-tab> :tabnext<cr> 
 
+"vim下次重启时恢复上次的环境
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+"保存undo历史
+set undodir=~/.undo_history/
+set undofile
+"保存快捷键
+map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+"恢复快捷键
+map <leader>sr :source my.vim<cr> :rviminfo my.viminfo<cr>
+
+"基于标签的代码导航
+"正向遍历同名标签，先按Ctrl-]，再执行下面两个
+nmap <leader>tn :tnext<cr>
+"反向遍历同名标签
+nmap <leader>tp :tprevious<cr>
+
 
 "插件安装
 call plug#begin('~/.vim/plugged')
@@ -203,12 +220,12 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_start_level=2
 "色块亮度
 let g:indent_guides_guide_size=1
-"快捷键i开/关缩进可视化
-noremap <silent> <leader>i <Plug>IndentGuidesToggle
+"快捷键开/关缩进可视化
+noremap <silent> <leader>ig <Plug>IndentGuidesToggle
 
-
+"vim-fswitch插件配置
 "接口和实现之间的切换（*.cpp和*.h之间的切换）
-noremap <silent> <leader>sw :FSHere<cr>
+noremap <silent> <leader>fs :FSHere<cr>
 
 "ctrlsf.vim插件配置
 "使用ctrlsf.vim插件在工程内全局查找光标所在关键字，sp代表search in project
@@ -301,27 +318,11 @@ let g:tagbar_type_lua = {
   \ 'sort' : 0
 \ }
 
-"UltiSnips插件配置，该插件需要python支持
+"UltiSnips插件配置，补全代码模板，该插件需要python支持
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
-"vim下次重启时恢复上次的环境
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-"保存undo历史
-set undodir=~/.undo_history/
-set undofile
-" 保存快捷键
-map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-"恢复快捷键
-map <leader>rs :source my.vim<cr> :rviminfo my.viminfo<cr>
-
-
-"基于标签的代码导航
-"正向遍历同名标签，先按Ctrl-]，再执行下面两个
-nmap <Leader>tn :tnext<CR>
-"反向遍历同名标签
-nmap <Leader>tp :tprevious<CR>
 
 "vim-go插件配置
 let g:go_fmt_command = "goimports"
@@ -343,10 +344,10 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "普通模式下，ap前往上一个错误或警告，an前往下一个错误或警告
 nmap ap <Plug>(ale_previous_wrap)
 nmap an <Plug>(ale_next_wrap)
-""<Leader>s触发/关闭语法检查
-nmap <Leader>al :ALEToggle<cr>
-"<Leader>d查看错误或警告的详细信息
-nmap <Leader>ad :ALEDetail<cr>
+"触发/关闭语法检查
+nmap <leader>al :ALEToggle<cr>
+"查看错误或警告的详细信息
+nmap <leader>ad :ALEDetail<cr>
 "文件内容发生变化时不进行检查
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -367,12 +368,16 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
 "Leaderf插件配置
-let g:Lf_ShortcutF = '<c-p>' 
-let g:Lf_ShortcutB = '<m-n>' 
-noremap <c-m> :LeaderfMru<cr> 
-noremap <c-f> :LeaderfFunction<cr> 
-noremap <c-b> :LeaderfBuffer<cr> 
-noremap <c-t> :LeaderfTag<cr> 
+noremap <leader>fm :LeaderfMru<cr> 
+inoremap <leader>fm <esc>:LeaderfMru<cr>
+noremap <leader>ff :LeaderfFunction<cr> 
+inoremap <leader>ff <esc>:LeaderfFunction<cr>
+noremap <leader>fb :LeaderfBuffer<cr> 
+inoremap <leader>fb <esc>:LeaderfBuffer<cr>
+noremap <leader>ft :LeaderfTag<cr> 
+inoremap <leader>ft <esc>:LeaderfTag<cr>
+noremap <leader>fp :LeaderfFile<cr>
+inoremap <leader>fp <esc>:LeaderfFile<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' } 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git'] 
 let g:Lf_WorkingDirectoryMode = 'Ac' 
@@ -384,9 +389,9 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 
 "Leaderf rg配置
 "search word under cursor, the pattern is treated as regex, and enter normal mode directly
-noremap <leader>sg :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 "search word under cursor literally only in current buffer
-noremap <leader>sb :<C-U><C-R>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <leader>fv :<C-U><C-R>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<CR>
 "search visually selected text literally, don't quit LeaderF after accepting an entry
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<CR>
 "recall last search. If the result window is closed, reopen it.
