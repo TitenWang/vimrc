@@ -39,8 +39,8 @@ nnoremap <leader>jw <c-w>j
 nnoremap <leader>kw <c-w>k
 
 "c-j c-k c-h c-l后续用于扩展其他插件命令
-map <c-j> <c-w>j
-map <c-k> <c-w>k
+"map <c-j> <c-w>j
+"map <c-k> <c-w>k
 map <c-h> <c-w>h
 map <c-l> <c-w>l
 
@@ -99,7 +99,11 @@ set cindent
 set smartindent
 
 "大括号输入左括号回车，会补全右括号并换行缩进
-imap {<cr> {<cr>}<esc>O
+inoremap {<cr> {<cr>}<esc>O
+inoremap " ""<esc>i
+inoremap ( ()<esc>i
+inoremap ' ''<esc>i
+inoremap [ []<esc>i
 
 "将制表符扩展为空格
 set expandtab
@@ -199,6 +203,10 @@ set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_theme="dark"
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = '|'
 
 "asyncrun.vim插件配置
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
@@ -361,9 +369,9 @@ let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"普通模式下，ap前往上一个错误或警告，an前往下一个错误或警告
-nmap ap <Plug>(ale_previous_wrap)
-nmap an <Plug>(ale_next_wrap)
+"普通模式下，<c-k>前往上一个错误或警告，<c-j>前往下一个错误或警告
+nmap <c-k> <Plug>(ale_previous_wrap)
+nmap <c-j> <Plug>(ale_next_wrap)
 "触发/关闭语法检查
 nmap <leader>al :ALEToggle<cr>
 "查看错误或警告的详细信息
