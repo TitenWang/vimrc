@@ -33,10 +33,10 @@ noremap <leader>WQ :wa<cr>:q<cr>
 noremap <leader>Q :qa!<cr>
 
 "跳至右、左，下、上方窗口
-nnoremap <leader>lw <c-w>l
-nnoremap <leader>hw <c-w>h
-nnoremap <leader>jw <c-w>j
-nnoremap <leader>kw <c-w>k
+nnoremap <leader>wl <c-w>l
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wj <c-w>j
+nnoremap <leader>wk <c-w>k
 
 "c-j c-k c-h c-l后续用于扩展其他插件命令
 "map <c-j> <c-w>j
@@ -57,7 +57,7 @@ noremap <leader>ss :setlocal spell!<cr>
 noremap <leader>M %
 
 "让配置变更理解生效
-"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 "开启实时搜索
 set incsearch
@@ -181,6 +181,7 @@ Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop']}
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'lervag/vimtex'
 "Plug 'vim-scripts/luainspect.vim'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-lua-ftplugin'
@@ -511,6 +512,13 @@ let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 "保存时自动格式化代码，针对所有支持的文件
 au BufWrite * :Autoformat
+
+"vimtex插件配置
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 
 
 "filetype相关
