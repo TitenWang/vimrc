@@ -181,10 +181,8 @@ Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop']}
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'lervag/vimtex'
-"Plug 'vim-scripts/luainspect.vim'
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-lua-ftplugin'
+Plug 'easymotion/vim-easymotion'
+"Plug 'lervag/vimtex'
 call plug#end()
 
 "配色方案
@@ -514,11 +512,11 @@ let g:autoformat_remove_trailing_spaces = 0
 au BufWrite * :Autoformat
 
 "vimtex插件配置
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-set conceallevel=1
-let g:tex_conceal='abdmg'
+"let g:tex_flavor='latex'
+"let g:vimtex_view_method='zathura'
+"let g:vimtex_quickfix_mode=0
+"set conceallevel=1
+"let g:tex_conceal='abdmg'
 
 
 "filetype相关
