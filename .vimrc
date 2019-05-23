@@ -1,6 +1,11 @@
 "定义前缀
 let mapleader=";"
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => 通用配置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "开启文件类型侦测
 filetype on
 filetype plugin on
@@ -57,7 +62,7 @@ noremap <leader>ss :setlocal spell!<cr>
 noremap <leader>M %
 
 "让配置变更理解生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 "开启实时搜索
 set incsearch
@@ -98,13 +103,6 @@ set autoindent
 set cindent
 set smartindent
 
-"大括号输入左括号回车，会补全右括号并换行缩进
-inoremap {<cr> {<cr>}<esc>O
-inoremap " ""<esc>i
-inoremap ( ()<esc>i
-inoremap ' ''<esc>i
-inoremap [ []<esc>i
-
 "将制表符扩展为空格
 set expandtab
 "设置编辑时制表符占用的空格数
@@ -120,39 +118,10 @@ set foldmethod=syntax
 "启动vim时关闭代码折叠
 set nofoldenable
 
-"vim标签相关快捷键
-noremap <silent><tab>m :tabnew<cr> 
-noremap <silent><tab>e :tabclose<cr> 
-noremap <silent><tab>n :tabn<cr> 
-noremap <silent><tab>p :tabp<cr>  
-noremap <silent><leader>1 :tabn 1<cr> 
-noremap <silent><leader>2 :tabn 2<cr> 
-noremap <silent><leader>3 :tabn 3<cr> 
-noremap <silent><leader>4 :tabn 4<cr> 
-noremap <silent><leader>5 :tabn 5<cr> 
-noremap <silent><leader>6 :tabn 6<cr> 
-noremap <silent><leader>7 :tabn 7<cr> 
-noremap <silent><leader>8 :tabn 8<cr> 
-noremap <silent><leader>9 :tabn 9<cr> 
-noremap <silent><leader>0 :tabn 10<cr> 
-noremap <silent><s-tab> :tabnext<cr> 
 
-"vim下次重启时恢复上次的环境
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-"保存undo历史
-set undodir=~/.undo_history/
-set undofile
-"保存快捷键
-map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
-"恢复快捷键
-map <leader>sr :source my.vim<cr> :rviminfo my.viminfo<cr>
-
-"基于标签的代码导航
-"正向遍历同名标签，先按Ctrl-]，再执行下面两个
-nmap <leader>tn :tnext<cr>
-"反向遍历同名标签
-nmap <leader>tp :tprevious<cr>
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => 插件配置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "插件安装
 call plug#begin('~/.vim/plugged')
@@ -350,7 +319,6 @@ let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
-
 "vim-go插件配置
 let g:go_fmt_command = "goimports"
 
@@ -416,22 +384,22 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 
 "Leaderf rg配置
 "search word under cursor, the pattern is treated as regex, and enter normal mode directly
-noremap <leader>fg :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>fg :<c-u><c-r>=printf("Leaderf! rg -e %s ", expand("<cword>"))<cr>
 "search word under cursor literally only in current buffer
-noremap <leader>fv :<C-U><C-R>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <leader>fv :<c-u><c-r>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<cr>
 "search visually selected text literally, don't quit LeaderF after accepting an entry
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<CR>
+xnoremap gf :<c-u><c-r>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<cr>
 "recall last search. If the result window is closed, reopen it.
-noremap go :<C-U>Leaderf! rg --stayOpen --recall<CR>
+noremap go :<c-u>Leaderf! rg --stayOpen --recall<cr>
 
 "vim-signify插件配置
 set signcolumn=yes
 
 "YCM插件配置
 "跳转至声明
-nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>jc :YcmCompleter GoToDeclaration<cr>
 "跳转至定义，只能是 #include 或已打开的文件
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinition<cr>
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
@@ -519,28 +487,81 @@ au BufWrite * :Autoformat
 "let g:tex_conceal='abdmg'
 
 
-"filetype相关
-""""""""""""""""""""""""""""""
-" => Python section
-""""""""""""""""""""""""""""""
-let python_highlight_all = 1
-au FileType python syn keyword pythonDecorator True None False self
-au BufNewFile,BufRead *.jinja set syntax=htmljinja
-au BufNewFile,BufRead *.mako set ft=mako
-au FileType python map <buffer> F :set foldmethod=indent<cr>
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
-au FileType python inoremap <buffer> $f # --- <esc>a
-au FileType python map <buffer> <leader>1 /class 
-au FileType python map <buffer> <leader>2 /def 
-au FileType python map <buffer> <leader>C ?class 
-au FileType python map <buffer> <leader>D ?def 
-au FileType python set cindent
-au FileType python set cinkeys-=0#
-au FileType python set indentkeys-=0#
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => 操作配置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"光标移动相关
+"vim标签相关快捷键
+noremap <silent><tab>m :tabnew<cr>
+noremap <silent><tab>e :tabclose<cr>
+noremap <silent><tab>n :tabn<cr>
+noremap <silent><tab>p :tabp<cr>
+noremap <silent><leader>1 :tabn 1<cr>
+noremap <silent><leader>2 :tabn 2<cr>
+noremap <silent><leader>3 :tabn 3<cr>
+noremap <silent><leader>4 :tabn 4<cr>
+noremap <silent><leader>5 :tabn 5<cr>
+noremap <silent><leader>6 :tabn 6<cr>
+noremap <silent><leader>7 :tabn 7<cr>
+noremap <silent><leader>8 :tabn 8<cr>
+noremap <silent><leader>9 :tabn 9<cr>
+noremap <silent><leader>0 :tabn 10<cr>
+noremap <silent><s-tab> :tabnext<cr>
+
+"大括号输入左括号回车，会补全右括号并换行缩进
+inoremap {<cr> {<cr>}<esc>O
+inoremap " ""<esc>i
+inoremap ( ()<esc>i
+inoremap ' ''<esc>i
+inoremap [ []<esc>i
+
+"vim下次重启时恢复上次的环境
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+"保存undo历史
+set undodir=~/.undo_history/
+set undofile
+"保存快捷键
+map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+"恢复快捷键
+map <leader>sr :source my.vim<cr> :rviminfo my.viminfo<cr>
+
+"Visual模式下搜索选中的部分:*用于向后搜索，#用于向前搜索
+vnoremap <silent> * :<c-u>call VisualSelection('', '')<cr>/<c-r>=@/<cr><cr>
+vnoremap <silent> # :<c-u>call VisualSelection('', '')<cr>?<c-r>=@/<cr><cr>
+
+"搜索完成后取消高亮
+nnoremap <silent> <leader>nh :nohlsearch<cr>
+
+"基于标签的代码导航
+"正向遍历同名标签，先按Ctrl-]，再执行下面两个
+nmap <leader>tn :tnext<cr>
+"反向遍历同名标签
+nmap <leader>tp :tprevious<cr>
+
+"不改变当前窗口的模式，快速移动另外一个窗口及quickfix窗口的光标
+noremap <silent><tab>[ :call Tools_QuickfixCursor(2)<cr>
+noremap <silent><tab>] :call Tools_QuickfixCursor(3)<cr>
+noremap <silent><tab>{ :call Tools_QuickfixCursor(4)<cr>
+noremap <silent><tab>} :call Tools_QuickfixCursor(5)<cr>
+noremap <silent><tab>u :call Tools_PreviousCursor(6)<cr>
+noremap <silent><tab>d :call Tools_PreviousCursor(7)<cr>
+
+inoremap <silent><tab>[ <c-\><c-o>:call Tools_QuickfixCursor(2)<cr>
+inoremap <silent><tab>] <c-\><c-o>:call Tools_QuickfixCursor(3)<cr>
+inoremap <silent><tab>{ <c-\><c-o>:call Tools_QuickfixCursor(4)<cr>
+inoremap <silent><tab>} <c-\><c-o>:call Tools_QuickfixCursor(5)<cr>
+inoremap <silent><tab>u <c-\><c-o>:call Tools_PreviousCursor(6)<cr>
+inoremap <silent><tab>d <c-\><c-o>:call Tools_PreviousCursor(7)<cr>
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.sh,*.tex :call CleanExtraSpaces()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " 0:up, 1:down, 2:pgup, 3:pgdown 4:top, 5:bottom, 
 function! Tools_QuickfixCursor(mode)
 	function! s:quickfix_cursor(mode)
@@ -602,16 +623,29 @@ function! Tools_PreviousCursor(mode)
 	endif
 	noautocmd silent! wincmd p
 endfunc
-noremap <silent><tab>[ :call Tools_QuickfixCursor(2)<cr>
-noremap <silent><tab>] :call Tools_QuickfixCursor(3)<cr>
-noremap <silent><tab>{ :call Tools_QuickfixCursor(4)<cr>
-noremap <silent><tab>} :call Tools_QuickfixCursor(5)<cr>
-noremap <silent><tab>u :call Tools_PreviousCursor(6)<cr>
-noremap <silent><tab>d :call Tools_PreviousCursor(7)<cr>
 
-inoremap <silent><tab>[ <c-\><c-o>:call Tools_QuickfixCursor(2)<cr>
-inoremap <silent><tab>] <c-\><c-o>:call Tools_QuickfixCursor(3)<cr>
-inoremap <silent><tab>{ <c-\><c-o>:call Tools_QuickfixCursor(4)<cr>
-inoremap <silent><tab>} <c-\><c-o>:call Tools_QuickfixCursor(5)<cr>
-inoremap <silent><tab>u <c-\><c-o>:call Tools_PreviousCursor(6)<cr>
-inoremap <silent><tab>d <c-\><c-o>:call Tools_PreviousCursor(7)<cr>
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunc
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunc
+
+function! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunc
