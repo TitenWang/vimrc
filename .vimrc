@@ -25,9 +25,9 @@ noremap LE $
 inoremap jk <esc>
 
 "将选中文本块复制到系统剪贴板
-vnoremap <leader>y "+y
+vnoremap <leader>cs "+y
 "将系统剪贴板内容粘贴至vim
-noremap <leader>p "+p
+noremap <leader>pp "+p
 "定义快捷键关闭当前分割窗口
 noremap <leader>q :q<cr>
 "定义快捷键保存所有窗口内容并退出vim
@@ -57,7 +57,7 @@ noremap <silent><space>. :vertical resize +3<cr>
 noremap <leader>ss :setlocal spell!<cr>
 
 "定义快捷键在结对符之间跳转
-noremap <leader>M %
+noremap <leader>jp %
 
 "让配置变更理解生效
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -187,14 +187,14 @@ let g:asyncrun_open = 8
 let g:asyncrun_save = 2
 
 "vim-preview插件配置
-noremap <silent><space>g, :PreviewTag<cr>
-noremap <silent><space>g. :PreviewClose<cr>
-nnoremap <silent><c-a> :PreviewSignature<cr>
-inoremap <silent><c-a> <c-\><c-o>:PreviewSignature<cr>
-noremap <c-u> :PreviewScroll -1<cr>
-noremap <c-d> :PreviewScroll +1<cr>
-inoremap <c-u> <c-\><c-o>:PreviewScroll -1<cr>
-inoremap <c-d> <c-\><c-o>:PreviewScroll +1<cr>
+noremap <silent><leader>pt :PreviewTag<cr>
+noremap <silent><leader>pc :PreviewClose<cr>
+nnoremap <silent><leader>ps :PreviewSignature<cr>
+inoremap <silent><leader>ps <c-\><c-o>:PreviewSignature<cr>
+noremap <leader>pu :PreviewScroll -1<cr>
+noremap <leader>pd :PreviewScroll +1<cr>
+inoremap <leader>pu <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <leader>pd <c-\><c-o>:PreviewScroll +1<cr>
 
 "indent_guides插件配置
 "随vim自启动
@@ -371,15 +371,15 @@ let g:ale_cpp_cppcheck_options = ''
 let g:Lf_ShortcutF = ''
 let g:Lf_ShortcutB = ''
 noremap <leader>fm :LeaderfMru<cr> 
-inoremap <leader>fm <esc>:LeaderfMru<cr>
+inoremap <leader>fm <c-\><c-o>:LeaderfMru<cr>
 noremap <leader>ff :LeaderfFunction<cr> 
-inoremap <leader>ff <esc>:LeaderfFunction<cr>
+inoremap <leader>ff <c-\><c-o>:LeaderfFunction<cr>
 noremap <leader>fb :LeaderfBuffer<cr> 
-inoremap <leader>fb <esc>:LeaderfBuffer<cr>
+inoremap <leader>fb <c-\><c-o>:LeaderfBuffer<cr>
 noremap <leader>ft :LeaderfTag<cr> 
-inoremap <leader>ft <esc>:LeaderfTag<cr>
+inoremap <leader>ft <c-\><c-o>:LeaderfTag<cr>
 noremap <leader>fp :LeaderfFile<cr>
-inoremap <leader>fp <esc>:LeaderfFile<cr>
+inoremap <leader>fp <c-\><c-o>:LeaderfFile<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' } 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git'] 
 let g:Lf_WorkingDirectoryMode = 'Ac' 
@@ -525,6 +525,7 @@ let g:which_key_map.j = {
     \'name': '+jump',
     \'d': 'go-to-definition',
     \'c': 'go-to-declaration',
+    \'p': 'jump-to-pairing-symbols',
 \}
 
 let g:which_key_map.i = {
@@ -557,18 +558,15 @@ let g:which_key_map.s = {
 \}
 
 let g:which_key_map.c = {
-    \'name': '+comment',
+    \'name': '+comment/copy',
     \'c': 'comment-slected-text',
     \'u': 'uncomment-slected-text',
-    \'y': 'first-copy-then-comment-slected-text',
+    \'y': 'copy-and-comment-slected-text',
+    \'s': 'copy-to-system-clipboard',
 \}
 
 let g:which_key_map.Q = {
     \'name': 'quit-vim-without-save',
-\}
-
-let g:which_key_map.M = {
-    \'name': 'jump-between-pairing-symbols',
 \}
 
 let g:which_key_map.q = {
@@ -576,16 +574,18 @@ let g:which_key_map.q = {
 \}
 
 let g:which_key_map.p = {
-    \'name': 'paste-from-system-clipboard',
+    \'name': '+preview/paste',
+    \'p': 'paste-from-system-clipboard',
+    \'t': 'preview-tag-under-cursor',
+    \'c': 'close-preview-window',
+    \'s': 'preview-signature-under-cursor',
+    \'u': 'preview-window-scroll-up',
+    \'d': 'preview-windos-scroll-down',
 \}
 
 let g:which_key_map.W = {
-    \'name': '+save',
-    \'Q': 'save-and-quit-vim',
-\}
-
-let g:which_key_map.y = {
-    \'name': 'copy-to-system-clipboard',
+    \'name': '+write',
+    \'Q': 'write-and-quit-vim',
 \}
 
 let g:which_key_map.n = {
@@ -593,16 +593,14 @@ let g:which_key_map.n = {
     \'h': 'quit-highlight-search',
 \}
 
-"2.显示<space>作为前缀的命令提示信息
-nnoremap <silent> <space> :<c-u>WhichKey '<space>'<cr>
-vnoremap <silent> <space> :<c-u>WhichKeyVisual '<space>'<cr>
-let g:which_key_map_space =  {}
-call which_key#register(' ', "g:which_key_map_space")
-
-let g:which_key_map_space.g = {
-    \'name': '+preview',
-    \',': 'open-preview-window',
-    \'.': 'close-preview-window',
+let g:which_key_map.t = {
+    \'name': '+tab/tag',
+    \'m': 'new-tab',
+    \'c': 'close-tab',
+    \'n': 'go-to-next-tab',
+    \'p': 'go-to-previous-tab',
+    \'b': 'go-to-previous-tag',
+    \'a': 'go-to-next-tag',
 \}
 
 "vimtex插件配置
@@ -618,10 +616,10 @@ let g:which_key_map_space.g = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "vim标签相关快捷键
-noremap <silent><tab>m :tabnew<cr>
-noremap <silent><tab>e :tabclose<cr>
-noremap <silent><tab>n :tabn<cr>
-noremap <silent><tab>p :tabp<cr>
+noremap <silent><leader>tm :tabnew<cr>
+noremap <silent><leader>tc :tabclose<cr>
+noremap <silent><leader>tn :tabn<cr>
+noremap <silent><leader>tp :tabp<cr>
 noremap <silent><leader>1 :tabn 1<cr>
 noremap <silent><leader>2 :tabn 2<cr>
 noremap <silent><leader>3 :tabn 3<cr>
@@ -660,9 +658,9 @@ nnoremap <silent> <leader>nh :nohlsearch<cr>
 
 "基于标签的代码导航
 "正向遍历同名标签，先按Ctrl-]，再执行下面两个
-nmap <leader>tn :tnext<cr>
+nmap <leader>ta :tnext<cr>
 "反向遍历同名标签
-nmap <leader>tp :tprevious<cr>
+nmap <leader>tb :tprevious<cr>
 
 "不改变当前窗口的模式，快速移动另外一个窗口及quickfix窗口的光标
 noremap <silent><tab>[ :call Tools_QuickfixCursor(2)<cr>
@@ -671,7 +669,6 @@ noremap <silent><tab>{ :call Tools_QuickfixCursor(4)<cr>
 noremap <silent><tab>} :call Tools_QuickfixCursor(5)<cr>
 noremap <silent><tab>u :call Tools_PreviousCursor(6)<cr>
 noremap <silent><tab>d :call Tools_PreviousCursor(7)<cr>
-
 inoremap <silent><tab>[ <c-\><c-o>:call Tools_QuickfixCursor(2)<cr>
 inoremap <silent><tab>] <c-\><c-o>:call Tools_QuickfixCursor(3)<cr>
 inoremap <silent><tab>{ <c-\><c-o>:call Tools_QuickfixCursor(4)<cr>
