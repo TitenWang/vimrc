@@ -30,9 +30,7 @@ vnoremap <leader>y "+y
 noremap <leader>p "+p
 "定义快捷键关闭当前分割窗口
 noremap <leader>q :q<cr>
-"定义快捷键保存当前窗口内容
-noremap <leader>w :w<cr>
-"i定义快捷键保存所有窗口内容并退出vim
+"定义快捷键保存所有窗口内容并退出vim
 noremap <leader>WQ :wa<cr>:q<cr>
 "不做保存直接退出vim
 noremap <leader>Q :qa!<cr>
@@ -118,6 +116,12 @@ set foldmethod=syntax
 "启动vim时关闭代码折叠
 set nofoldenable
 
+"加强vimdiff功能
+if has('patch-8.1.0388')
+	set diffopt+=internal,algorithm:patience
+	set diffopt+=indent-heuristic
+endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 插件配置
@@ -147,10 +151,11 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
 Plug 'skywind3000/vim-preview'
 Plug 'Shougo/echodoc.vim'
-Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop']}
+Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun','AsyncStop'] }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
+Plug 'liuchengxu/vim-which-key'
 "Plug 'lervag/vimtex'
 call plug#end()
 
@@ -363,6 +368,8 @@ let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
 "Leaderf插件配置
+let g:Lf_ShortcutF = ''
+let g:Lf_ShortcutB = ''
 noremap <leader>fm :LeaderfMru<cr> 
 inoremap <leader>fm <esc>:LeaderfMru<cr>
 noremap <leader>ff :LeaderfFunction<cr> 
@@ -479,6 +486,113 @@ let g:autoformat_remove_trailing_spaces = 0
 "保存时自动格式化代码，针对所有支持的文件
 au BufWrite * :Autoformat
 
+"vim-which-key插件配置
+set timeoutlen=500
+"1. 显示<leader>作为前缀的命令提示信息
+nnoremap <silent> <leader> :<c-u>WhichKey ';'<cr>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ';'<cr>
+let g:which_key_map =  {}
+call which_key#register(';', "g:which_key_map")
+let g:which_key_map.w = {
+    \'name': '+window',
+    \'h': 'window-left',
+    \'j': 'window-below',
+    \'k': 'window-up',
+    \'l': 'window-right',
+\}
+
+let g:which_key_map.l = {
+    \'name': '+list',
+    \'f': 'open-nerdtree',
+    \'t': 'open-tagbar',
+\}
+
+let g:which_key_map.b = {
+    \'name': '+buffer',
+    \'l': 'open-minibufexpl',
+    \'n': 'next-buffer',
+    \'p': 'previous-buffer',
+\}
+
+let g:which_key_map.a = {
+    \'name': '+ale/autoformat',
+    \'l': 'toggle-ale',
+    \'d': 'ale-error/warning-detail',
+    \'f': 'toggle-autoformat',
+\}
+
+let g:which_key_map.j = {
+    \'name': '+jump',
+    \'d': 'go-to-definition',
+    \'c': 'go-to-declaration',
+\}
+
+let g:which_key_map.i = {
+    \'name': '+indent',
+    \'g': 'toggle-indent-guides',
+\}
+
+let g:which_key_map.f = {
+    \'name': '+file/find',
+    \'f': 'leaderf-function',
+    \'p': 'leaderf-file',
+    \'m': 'leaderf-mru',
+    \'t': 'leaderf-tag',
+    \'b': 'leaderf-buffer',
+    \'s': 'switch-between-.h-.cpp',
+    \'g': 'search-word-under-cursor',
+    \'v': 'search-word-under-cursor-in-current-buffer',
+\}
+
+let g:which_key_map.s = {
+    \'name': '+search/spell/session',
+    \'t': 'toggle-ctrlsf',
+    \'p': 'search-word-under-cursor',
+    \'f': '(visual)search-slected-text',
+    \'F': '(visual)search-slected-text',
+    \'n': 'search-word-under-cursor',
+    \'s': 'toggle-spell-checking',
+    \'r': 'restore-vim-session',
+    \'d': 'save-vim-session',
+\}
+
+let g:which_key_map.c = {
+    \'name': '+comment',
+    \'c': 'comment-slected-text',
+    \'u': 'uncomment-slected-text',
+    \'y': 'first-copy-then-comment-slected-text',
+\}
+
+let g:which_key_map.Q = {
+    \'name': 'quit-vim-without-save',
+\}
+
+let g:which_key_map.M = {
+    \'name': 'jump-between-pairing-symbols',
+\}
+
+let g:which_key_map.q = {
+    \'name': 'quit-current-window',
+\}
+
+let g:which_key_map.p = {
+    \'name': 'paste-from-system-clipboard',
+\}
+
+let g:which_key_map.W = {
+    \'name': '+save',
+    \'Q': 'save-and-quit-vim',
+\}
+
+let g:which_key_map.y = {
+    \'name': 'copy-to-system-clipboard',
+\}
+
+let g:which_key_map.n = {
+    \'name': '+no',
+    \'h': 'quit-highlight-search',
+\}
+
 "vimtex插件配置
 "let g:tex_flavor='latex'
 "let g:vimtex_view_method='zathura'
@@ -521,7 +635,7 @@ set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,hel
 set undodir=~/.undo_history/
 set undofile
 "保存快捷键
-map <leader>ss :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+map <leader>sd :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
 "恢复快捷键
 map <leader>sr :source my.vim<cr> :rviminfo my.viminfo<cr>
 
