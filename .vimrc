@@ -13,58 +13,17 @@ filetype plugin on
 "文件内容在外部被改时则刷新文件内容
 set autoread
 set smartcase
+
 set encoding=utf8
 set ffs=unix,dos,mac
-set smarttab
-
-"定义快捷键到行首和行尾
-noremap <leader>lb ^
-noremap <leader>le $
-
-"定义从Insert模式退回到Normal模式的快捷键
-inoremap jk <esc>
-
-"将选中文本块复制到系统剪贴板
-vnoremap <leader>cs "+y
-"将系统剪贴板内容粘贴至vim
-noremap <leader>pp "+p
-"定义快捷键关闭当前分割窗口
-noremap <leader>q :q<cr>
-"定义快捷键保存所有窗口内容并退出vim
-noremap <leader>WQ :wa<cr>:q<cr>
-"不做保存直接退出vim
-noremap <leader>Q :qa!<cr>
-
-"跳至右、左，下、上方窗口
-nnoremap <leader>wl <c-w>l
-nnoremap <leader>wh <c-w>h
-nnoremap <leader>wj <c-w>j
-nnoremap <leader>wk <c-w>k
-
-"c-j c-k c-h c-l后续用于扩展其他插件命令
-"map <c-j> <c-w>j
-"map <c-k> <c-w>k
-map <c-h> <c-w>h
-map <c-l> <c-w>l
-
-"调整windows大小
-noremap <silent><leader>wJ :resize +3<cr>
-noremap <silent><leader>wK :resize -3<cr>
-noremap <silent><leader>wH <c-w>3<
-noremap <silent><leader>wL <c-w>3>
-
-"开启或关闭拼写检查
-noremap <leader>ss :setlocal spell!<cr>
-
-"定义快捷键在结对符之间跳转
-noremap <leader>jp %
 
 "让配置变更理解生效
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 "开启实时搜索
 set incsearch
-
+"高亮显示搜索结果
+set hlsearch
 "搜索时大小写不敏感
 set ignorecase
 
@@ -84,8 +43,6 @@ set number
 "高亮当前行和列
 set cursorline
 set cursorcolumn
-"高亮显示搜索结果
-set hlsearch
 
 "禁止折行
 set nowrap
@@ -101,6 +58,7 @@ set autoindent
 set cindent
 set smartindent
 
+set smarttab
 "将制表符扩展为空格
 set expandtab
 "设置编辑时制表符占用的空格数
@@ -111,7 +69,6 @@ set shiftwidth=4
 set softtabstop=4
 
 "基于缩进或者语法进行代码折叠
-"set foldmethod=indent
 set foldmethod=syntax
 "启动vim时关闭代码折叠
 set nofoldenable
@@ -393,11 +350,11 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "search word under cursor, the pattern is treated as regex, and enter normal mode directly
 noremap <leader>fg :<c-u><c-r>=printf("Leaderf! rg -e %s ", expand("<cword>"))<cr>
 "search word under cursor literally only in current buffer
-noremap <leader>fv :<c-u><c-r>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<cr>
+noremap <leader>fc :<c-u><c-r>=printf("Leaderf! rg -F --current-buffer -e %s ", expand("<cword>"))<cr>
 "search visually selected text literally, don't quit LeaderF after accepting an entry
-xnoremap gf :<c-u><c-r>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<cr>
+xnoremap <leader>fv :<c-u><c-r>=printf("Leaderf! rg -F --stayOpen -e %s ", leaderf#Rg#visual())<cr>
 "recall last search. If the result window is closed, reopen it.
-noremap go :<c-u>Leaderf! rg --stayOpen --recall<cr>
+noremap <leader>fr :<c-u>Leaderf! rg --stayOpen --recall<cr>
 
 "vim-signify插件配置
 set signcolumn=yes
@@ -419,8 +376,6 @@ highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 let g:ycm_complete_in_comments=1
 " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
 " 从第一个键入字符就开始罗列匹配项
@@ -549,8 +504,10 @@ let g:which_key_map.f = {
     \'t': 'leaderf-tag',
     \'b': 'leaderf-buffer',
     \'s': 'switch-between-.h-.cpp',
-    \'g': 'search-word-under-cursor',
-    \'v': 'search-word-under-cursor-in-current-buffer',
+    \'g': 'find-word-under-cursor',
+    \'c': 'find-word-under-cursor-in-current-buffer',
+    \'v': '(visual)find-slected-text',
+    \'r': 'recall-last-find',
 \}
 
 let g:which_key_map.s = {
@@ -622,6 +579,48 @@ let g:which_key_map.t = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 操作配置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"定义快捷键到行首和行尾
+noremap <leader>lb ^
+noremap <leader>le $
+
+"定义从Insert模式退回到Normal模式的快捷键
+inoremap jk <esc>
+
+"将选中文本块复制到系统剪贴板
+vnoremap <leader>cs "+y
+"将系统剪贴板内容粘贴至vim
+noremap <leader>pp "+p
+"定义快捷键关闭当前分割窗口
+noremap <leader>q :q<cr>
+"定义快捷键保存所有窗口内容并退出vim
+noremap <leader>WQ :wa<cr>:q<cr>
+"不做保存直接退出vim
+noremap <leader>Q :qa!<cr>
+
+"跳至右、左，下、上方窗口
+nnoremap <leader>wl <c-w>l
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wj <c-w>j
+nnoremap <leader>wk <c-w>k
+
+"c-j c-k c-h c-l后续用于扩展其他插件命令
+"map <c-j> <c-w>j
+"map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+
+"调整windows大小
+noremap <silent><leader>wJ :resize +3<cr>
+noremap <silent><leader>wK :resize -3<cr>
+noremap <silent><leader>wH <c-w>3<
+noremap <silent><leader>wL <c-w>3>
+
+"开启或关闭拼写检查
+noremap <leader>ss :setlocal spell!<cr>
+
+"定义快捷键在结对符之间跳转
+noremap <leader>jp %
 
 "vim标签相关快捷键
 noremap <silent><leader>tm :tabnew<cr>
