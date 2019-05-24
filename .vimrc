@@ -18,8 +18,8 @@ set ffs=unix,dos,mac
 set smarttab
 
 "定义快捷键到行首和行尾
-noremap LB ^
-noremap LE $
+noremap <leader>lb ^
+noremap <leader>le $
 
 "定义从Insert模式退回到Normal模式的快捷键
 inoremap jk <esc>
@@ -48,10 +48,10 @@ map <c-h> <c-w>h
 map <c-l> <c-w>l
 
 "调整windows大小
-noremap <silent><space>= :resize +3<cr>
-noremap <silent><space>- :resize -3<cr>
-noremap <silent><space>, :vertical resize -3<cr>
-noremap <silent><space>. :vertical resize +3<cr>
+noremap <silent><leader>wJ :resize +3<cr>
+noremap <silent><leader>wK :resize -3<cr>
+noremap <silent><leader>wH <c-w>3<
+noremap <silent><leader>wL <c-w>3>
 
 "开启或关闭拼写检查
 noremap <leader>ss :setlocal spell!<cr>
@@ -176,10 +176,10 @@ set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_theme="dark"
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#right_sep = ' '
+"let g:airline#extensions#tabline#right_alt_sep = '|'
 
 "asyncrun.vim插件配置
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
@@ -499,12 +499,20 @@ let g:which_key_map.w = {
     \'j': 'window-below',
     \'k': 'window-up',
     \'l': 'window-right',
+    \'H': 'window-vertical-decrease',
+    \'J': 'window-horizontal-increase',
+    \'K': 'window-horizontal-decrease',
+    \'L': 'window-vertical-increase',
+    \'s': ['<c-w>s','split-window-horizontal'],
+    \'v': ['<c-w>v','split-window-vertical'],
 \}
 
 let g:which_key_map.l = {
-    \'name': '+list',
+    \'name': '+list/line',
     \'f': 'open-nerdtree',
     \'t': 'open-tagbar',
+    \'b': 'go-to-line-begin',
+    \'e': 'go-to-line-end',
 \}
 
 let g:which_key_map.b = {
