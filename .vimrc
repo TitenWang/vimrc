@@ -593,6 +593,18 @@ let g:which_key_map.n = {
     \'h': 'quit-highlight-search',
 \}
 
+"2.显示<space>作为前缀的命令提示信息
+nnoremap <silent> <space> :<c-u>WhichKey '<space>'<cr>
+vnoremap <silent> <space> :<c-u>WhichKeyVisual '<space>'<cr>
+let g:which_key_map_space =  {}
+call which_key#register(' ', "g:which_key_map_space")
+
+let g:which_key_map_space.g = {
+    \'name': '+preview',
+    \',': 'open-preview-window',
+    \'.': 'close-preview-window',
+\}
+
 "vimtex插件配置
 "let g:tex_flavor='latex'
 "let g:vimtex_view_method='zathura'
