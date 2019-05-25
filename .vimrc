@@ -279,9 +279,9 @@ let g:tagbar_type_lua = {
 \ }
 
 "UltiSnips插件配置，补全代码模板，该插件需要python支持
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+let g:UltiSnipsExpandTrigger="<leader>sd"
+let g:UltiSnipsJumpForwardTrigger="<leader>sd"
+let g:UltiSnipsJumpBackwardTrigger="<leader>su"
 
 "vim-go插件配置
 let g:go_fmt_command = "goimports"
@@ -381,7 +381,7 @@ let g:ycm_confirm_extra_conf=0
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
 " 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
+"let g:ycm_min_num_of_chars_for_completion=1
 " 禁止缓存匹配项，每次都重新生成匹配项
 let g:ycm_cache_omnifunc=0
 " 语法关键字补全          
@@ -453,7 +453,7 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual ';'<cr>
 let g:which_key_map =  {}
 call which_key#register(';', "g:which_key_map")
 let g:which_key_map.w = {
-    \'name': '+window',
+    \'name': '+window/write',
     \'h': 'window-left',
     \'j': 'window-below',
     \'k': 'window-up',
@@ -464,6 +464,7 @@ let g:which_key_map.w = {
     \'L': 'window-vertical-increase',
     \'s': ['<c-w>s','split-window-horizontal'],
     \'v': ['<c-w>v','split-window-vertical'],
+    \'q': 'save-all-and-quit-vim',
 \}
 
 let g:which_key_map.l = {
@@ -515,7 +516,7 @@ let g:which_key_map.f = {
 \}
 
 let g:which_key_map.s = {
-    \'name': '+search/spell/session',
+    \'name': '+search/spell/session/snippets',
     \'t': 'toggle-ctrlsf',
     \'p': 'search-word-under-cursor',
     \'f': '(visual)search-slected-text',
@@ -523,7 +524,9 @@ let g:which_key_map.s = {
     \'n': 'search-word-under-cursor',
     \'s': 'toggle-spell-checking',
     \'r': 'restore-vim-session',
-    \'d': 'save-vim-session',
+    \'h': 'save-vim-session',
+    \'d': 'snippets-expand-or-jump-forward',
+    \'u': 'snippets-jump-backward',
 \}
 
 let g:which_key_map.c = {
@@ -534,12 +537,10 @@ let g:which_key_map.c = {
     \'s': 'copy-to-system-clipboard',
 \}
 
-let g:which_key_map.Q = {
-    \'name': 'quit-vim-without-save',
-\}
-
 let g:which_key_map.q = {
-    \'name': 'quit-current-window',
+    \'name': '+quit',
+    \'a': 'quit-without-saving',
+    \'c': 'quit-current-window',
 \}
 
 let g:which_key_map.p = {
@@ -552,11 +553,6 @@ let g:which_key_map.p = {
     \'d': 'preview-windos-scroll-down',
 \}
 
-let g:which_key_map.W = {
-    \'name': '+write',
-    \'Q': 'write-and-quit-vim',
-\}
-
 let g:which_key_map.n = {
     \'name': '+no',
     \'h': 'quit-highlight-search',
@@ -566,6 +562,15 @@ let g:which_key_map.d = {
     \'name': '+display',
     \'f': 'display-fullscreen',
     \'d': 'display-ycm-detailed-diagnostic',
+\}
+
+let g:which_key_map[';'] = {
+    \'name': '+easymotion',
+    \'w': ['<Plug>(easymotion-w)', 'beginning-of-word-forward'],
+    \'b': ['<Plug>(easymotion-b)', 'beginning-of-word-backword'],
+    \'j': ['<Plug>(easymotion-j)', 'jump-line-downward'],
+    \'k': ['<Plug>(easymotion-k)', 'jump-line-upward'],
+    \'s': ['<Plug>(easymotion-s)', 'search-char-forward-or-backward'],
 \}
 
 let g:which_key_map.t = {
@@ -620,11 +625,11 @@ vnoremap <leader>cs "+y
 "将系统剪贴板内容粘贴至vim
 noremap <leader>pp "+p
 "定义快捷键关闭当前分割窗口
-noremap <leader>q :q<cr>
+noremap <leader>qc :q<cr>
 "定义快捷键保存所有窗口内容并退出vim
-noremap <leader>WQ :wa<cr>:q<cr>
+noremap <leader>wq :wa<cr>:q<cr>
 "不做保存直接退出vim
-noremap <leader>Q :qa!<cr>
+noremap <leader>qa :qa!<cr>
 
 "跳至右、左，下、上方窗口
 nnoremap <leader>wl <c-w>l
@@ -680,7 +685,7 @@ set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,hel
 set undodir=~/.undo_history/
 set undofile
 "保存快捷键
-map <leader>sd :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
+map <leader>sh :mksession! my.vim<cr> :wviminfo! my.viminfo<cr>
 "恢复快捷键
 map <leader>sr :source my.vim<cr> :rviminfo my.viminfo<cr>
 
