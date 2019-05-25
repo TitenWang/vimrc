@@ -113,6 +113,8 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 Plug 'liuchengxu/vim-which-key'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 "Plug 'lervag/vimtex'
 call plug#end()
 
@@ -384,6 +386,8 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_cache_omnifunc=0
 " 语法关键字补全          
 let g:ycm_seed_identifiers_with_syntax=1
+"显示详细错误/警告信息快捷键
+let g:ycm_key_detailed_diagnostics = '<leader>dd'
 
 " 开启 YCM 标签引擎并引入所需要的tags文件，如c++标准库的等，生成相应文件的tags,用ctags工具，
 " 并根据实际情况设置路径，下面只是一个示例。
@@ -558,6 +562,12 @@ let g:which_key_map.n = {
     \'h': 'quit-highlight-search',
 \}
 
+let g:which_key_map.d = {
+    \'name': '+display',
+    \'f': 'display-fullscreen',
+    \'d': 'display-ycm-detailed-diagnostic',
+\}
+
 let g:which_key_map.t = {
     \'name': '+tab/tag',
     \'m': 'new-tab',
@@ -567,6 +577,24 @@ let g:which_key_map.t = {
     \'b': 'go-to-previous-tag',
     \'a': 'go-to-next-tag',
 \}
+
+"limelight.vim和Goyo.vim插件配置
+"打开/关闭Goyo
+nnoremap <leader>df :Goyo<cr>
+inoremap <leader>df  <c-\><c-o>:Goyo<cr>
+"定义打开/关闭Goyo时，一并打开/关闭的插件
+function! s:goyo_enter()
+    MBEClose
+    NERDTreeToggle
+    RainbowParenthesesToggle
+    Limelight
+endfunc
+function! s:goyo_leave()
+    Limelight!
+    RainbowParenthesesToggle
+endfunc
+autocmd! User GoyoEnter call <SID>goyo_enter()
+autocmd! User GoyoLeave call <SID>goyo_leave()
 
 "vimtex插件配置
 "let g:tex_flavor='latex'
