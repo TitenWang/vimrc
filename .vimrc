@@ -116,6 +116,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mg979/vim-visual-multi'
+Plug 'mhinz/vim-startify'
 "Plug 'lervag/vimtex'
 call plug#end()
 
@@ -158,13 +159,13 @@ inoremap <leader>pd <c-\><c-o>:PreviewScroll +1<cr>
 
 "indent_guides插件配置
 "随vim自启动
-let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_enable_on_vim_startup=1
 "从第二层开始可视化显示缩进
 let g:indent_guides_start_level=2
 "色块亮度
 let g:indent_guides_guide_size=1
 "快捷键开/关缩进可视化
-noremap <silent> <leader>ig <Plug>IndentGuidesToggle
+noremap <silent> <leader>it :IndentGuidesToggle<cr>
 
 "vim-fswitch插件配置
 "接口和实现之间的切换（*.cpp和*.h之间的切换）
@@ -499,7 +500,7 @@ let g:which_key_map.j = {
 
 let g:which_key_map.i = {
     \'name': '+indent',
-    \'g': 'toggle-indent-guides',
+    \'t': 'toggle-indent-guides',
 \}
 
 let g:which_key_map.f = {
@@ -628,6 +629,20 @@ let g:VM_maps['Find Under'] = '<leader>mw'
 let g:VM_maps["Start Regex Search"] = '<leader>mr'
 let g:VM_maps["Visual All"] = '<leader>mt'
 let g:VM_maps["Alt Skip"] = '<leader>mn'
+
+"vim-startify插件配置
+autocmd VimEnter *
+    \   if !argc()
+    \ |   Startify
+    \ |   wincmd w
+    \ | endif
+let g:startify_custom_footer = [
+    \"\t业精于勤荒于嬉，行成于思毁于随",
+\]
+let g:startify_lists = [
+    \ { 'type': 'files',     'header': ['   Most recently used files:']},
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks:']},
+\]
 
 "vimtex插件配置
 "let g:tex_flavor='latex'
