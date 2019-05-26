@@ -115,6 +115,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'liuchengxu/vim-which-key'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'mg979/vim-visual-multi'
 "Plug 'lervag/vimtex'
 call plug#end()
 
@@ -511,7 +512,7 @@ let g:which_key_map.f = {
     \'s': 'switch-between-.h-.cpp',
     \'g': 'find-word-under-cursor',
     \'c': 'find-word-under-cursor-in-current-buffer',
-    \'v': '(visual)find-slected-text',
+    \'v': '(visual)find-selected-text',
     \'r': 'recall-last-find',
 \}
 
@@ -519,8 +520,8 @@ let g:which_key_map.s = {
     \'name': '+search/spell/session/snippets',
     \'t': 'toggle-ctrlsf',
     \'p': 'search-word-under-cursor',
-    \'f': '(visual)search-slected-text',
-    \'F': '(visual)search-slected-text',
+    \'f': '(visual)search-selected-text',
+    \'F': '(visual)search-selected-text',
     \'n': 'search-word-under-cursor',
     \'s': 'toggle-spell-checking',
     \'r': 'restore-vim-session',
@@ -531,9 +532,9 @@ let g:which_key_map.s = {
 
 let g:which_key_map.c = {
     \'name': '+comment/copy',
-    \'c': 'comment-slected-text',
-    \'u': 'uncomment-slected-text',
-    \'y': 'copy-and-comment-slected-text',
+    \'c': 'comment-selected-text',
+    \'u': 'uncomment-selected-text',
+    \'y': 'copy-and-comment-selected-text',
     \'s': 'copy-to-system-clipboard',
 \}
 
@@ -583,6 +584,19 @@ let g:which_key_map.t = {
     \'a': 'go-to-next-tag',
 \}
 
+let g:which_key_map.m = {
+    \'name': '+multi',
+    \'w': 'find-word-under-cursor',
+    \'r': 'start-regex-search',
+    \'l': 'append-selected-text',
+    \'h': 'subtract-selected-text',
+    \'a': 'select-all-word-under-cursor',
+    \'u': 'add-cursor-up',
+    \'d': 'add-cursor-down',
+    \'t': '(visual)select-all-selected-text',
+    \'n': 'jump-to-next-equal-region',
+\}
+
 "limelight.vim和Goyo.vim插件配置
 "打开/关闭Goyo
 nnoremap <leader>df :Goyo<cr>
@@ -600,6 +614,20 @@ function! s:goyo_leave()
 endfunc
 autocmd! User GoyoEnter call <SID>goyo_enter()
 autocmd! User GoyoLeave call <SID>goyo_leave()
+
+"vim-visual-multi插件配置
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_leader = ";"
+let g:VM_maps["Select All"] = '<leader>ma'
+let g:VM_maps["Add Cursor Down"] = '<leader>md'
+let g:VM_maps["Add Cursor Up"] = '<leader>mu'
+let g:VM_maps["Select l"] = '<leader>ml'
+let g:VM_maps["Select h"] = '<leader>mh'
+let g:VM_maps['Find Under'] = '<leader>mw'
+let g:VM_maps["Start Regex Search"] = '<leader>mr'
+let g:VM_maps["Visual All"] = '<leader>mt'
+let g:VM_maps["Alt Skip"] = '<leader>mn'
 
 "vimtex插件配置
 "let g:tex_flavor='latex'
