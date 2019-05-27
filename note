@@ -68,8 +68,8 @@ Ubuntu下安装vim及其插件
 20、针对python的插件，需要安装一些后台引擎flake8和autopep8，（pip3 install flake8 ； pip3 install autopep8）
 21、tools_cursor使用：假设左右分屏，那么当光标在左边window时，则滚动右边window；如果光标在右边，则滚动左边window。
 22、ctrlsf需要安装工具ag。（参考https://catdoc.iteye.com/blog/2162402）或者ctrlsf这个插件可以用leaderf的rg子命令来替代（leaderf rg需要下载rg这个工具，
-    但是在github上面下载很慢），如果有rg的话，就用leaderf rg来替代ctrlsf，如果只有ag的话，就用ctrlsf。安装ag的时候，可能需要libcpre，安装libpcre的时候
-    用如下命令：sudo apt-get install libpcre3 libpcre3-dev。
+    但是在github上面下载很慢），如果有rg的话，就用leaderf rg来替代ctrlsf，如果只有ag的话，就用ctrlsf。安装ag的时候，可能需要libcpre和liblzma，安装libpcre的时候
+    用如下命令：sudo apt-get install libpcre3 libpcre3-dev；sudo apt-get install liblzma-dev
 
 注：bash显示状态（将下面内容拷贝进.bashrc，然后source .bashrc;）或者参考博客http://blog.sina.com.cn/s/blog_541866c50102uxfa.html
 function git_branch {
