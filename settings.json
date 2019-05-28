@@ -1,0 +1,6 @@
+{
+    "vim.leader": ";",
+    "vim.easymotion": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true
+}
