@@ -5,21 +5,21 @@
 - [Vim使用效果](#Vim使用效果)
 - [Vim安装及配置](#Vim安装及配置)
     - [Lua安装](#Lua安装)
-        - [0. 下载依赖库](#0.-下载依赖库)
-        - [1. 下载安装包](#1.-下载安装包)
-        - [2. 安装lua](#2.-安装lua)
+        - [下载依赖库](#下载依赖库)
+        - [下载安装包](#下载安装包)
+        - [安装lua](#安装lua)
     - [Vim安装](#Vim安装)
-        - [0. 安装语言支持](#0.-安装语言支持)
-        - [1. 安装git及配置](#1.-安装git及配置)
-        - [2. 生成ssh key（可选）](#2.-生成ssh-key（可选）)
-        - [3. 源码安装vim](#3.-源码安装vim)
-        - [4. 安装系统工具](#4.-安装系统工具)
-        - [5. vim插件安装,](#5.-vim插件安装,)
-            - [5.1 安装vim-plug](#5.1-安装vim-plug)
-            - [5.2 其他插件安装](#5.2-其他插件安装)
-            - [5.3 YCM插件安装](#5.3-YCM插件安装)
-                - [5.3.1 简易安装法](#5.3.1-简易安装法)
-                - [5.3.2 手动编译法](#5.3.2-手动编译法)
+        - [安装语言支持](#安装语言支持)
+        - [安装git及配置](#安装git及配置)
+        - [生成ssh key](#生成ssh-key)
+        - [源码安装vim](#源码安装vim)
+        - [安装系统工具](#安装系统工具)
+        - [vim插件安装](#vim插件安装,)
+            - [安装vim-plug](#安装vim-plug)
+            - [其他插件安装](#其他插件安装)
+            - [YCM插件安装](#YCM插件安装)
+                - [简易安装法](#简易安装法)
+                - [手动编译法](#手动编译法)
 - [致谢](#致谢)
 
 # Vim使用效果
@@ -41,15 +41,15 @@ YCM补全：
 # Vim安装及配置
 　　以下步骤中的操作，均假设在用户主目录下操作。
 ## Lua安装
-### 0. 下载依赖库
+### 下载依赖库
 ```
 sudo apt-get install libreadline7 libreadline-dev
 ```
-### 1. 下载安装包
+### 下载安装包
 ```
 wget http://www.lua.org/ftp/lua-5.3.5.tar.gz
 ```
-### 2. 安装lua
+### 安装lua
 ```
 tar -zxvf lua-5.3.5.tar.gz
 cd lua-5.3.5
@@ -59,25 +59,25 @@ sudo make install
 　　执行完上述步骤之后，可以在shell中键入lua来看是否安装成功。
 # Vim安装
 　　由于这份vim配置中的部分插件需要vim的版本在8.0以上，因此我们通过源码安装vim的最新版本。具体步骤如下：
-### 0. 安装语言支持
+### 安装语言支持
 ```
 sudo apt-get install python-dev python3-dev liblua5.3-dev libncurses5-dev
 ```
-### 1. 安装git及配置
+### 安装git及配置
 　　由于git不一定非要是最新版本，可以直接通过ubuntu的源进行安装，并进行简单配置，这里以我的github账号为例：
 ```
 sudo apt-get install git
 git config --global user.name TitenWang
 git config --global user.email TitenWang2013@hotmail.com
 ```
-### 2. 生成ssh key（可选）
+### 生成ssh key
 　　由于我们经常需要从github上面下载一些仓库，因此为了后续的可能有的权限问题，我们可以生成ssh key并添加到github当中。</br>
 　　首先在shell中生成ssh key，采用默认设置，执行如下命令，并一直回车，直到命令结束：
  ```
  ssh-keygen
  ```
  　　执行完上述命令之后，会在～/.ssh/目录下面生成两个文件id_rsa和id_rsa.pub，到github账号“Settings->SSH and GPG keys->SSH keys”中，点击“New SSH key”，填入title，然后将id_rsa.pub的文件内容添加到key中，并保存。
-### 3. 源码安装vim
+### 源码安装vim
 　　由于Ubuntu自带的或者安装源中的vim版本不一定是最新的，因此我们通过源码来安装最新版本的vim。步骤如下：
 ```
 git clone git@github.com:vim/vim.git
@@ -96,7 +96,7 @@ sudo make install
 - 将“export PATH=$PATH:/usr/local/vim/bin”追加到～/.profile。
 - 将“export PATH=$PATH:/usr/local/vim/bin”追加到~/.bashrc。</br>
 上述方法选一种即可，追加完之后记得执行source，以让修改生效。接着我们可以在shell中输入“vim --version”来看我们的安装结果，检查是否有“+python3”和“+lua”，如果有的话，说明安装符合我们的预期。
-### 4. 安装系统工具
+### 安装系统工具
 　　由于一些vim插件需要系统工具的支持，如ale需要clang（支持c/c++等）和flake8（支持python），vim-autoformat需要autopep8，因此在安装插件之前我们先将这些系统工具安装一下。
 　　先安装一些操作起来简单的，如下：
 ```
@@ -117,29 +117,29 @@ sudo cp -r * /usr/local
 ```
 　　这样我们就将clang的预编译版本安装到了/usr/local目录下了。一般来说，/usr/local/bin目录已经在系统变量PATH中了，因此这里就不需要修改PATH了。</br>
 　　如果需要使用vim-go来写golang的话，那么还需要安装下golang，这个可以参考golang官方的![安装指南](https://golang.google.cn/doc/install)以及![添加GOPATH](https://golang.google.cn/doc/code.html)等。
-### 5. vim插件安装,
+### vim插件安装
 　　这个vim配置库中只包含了两个文件，一个是.vimrc，这个文件是vim的配置文件；另一个是.ycm_extra_conf.py，这个文件是YCM使用的，如何使用参考![YCM](https://github.com/Valloric/YouCompleteMe)。将这两个文件放置到用户主目录下即可。
-#### 5.1 安装vim-plug
+#### 安装vim-plug
 　　通过上面的步骤，我们已经安装好了vim，以及vim插件可能会用到的一些系统工具，我们现在要开始安装vim插件，来配置vim了。vim插件很多，这里采用了插件管理器vim-plug来管理插件。插件管理器vim-plug本身也是一个vim插件，在安装其他插件之前，我们需要先安装一下vim-plug。命令如下：
 ```
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 　　执行完上面这个命令之后，在～/.vim/autoload/目录下面能看到plug.vim，这个文件就是vim-plug了。到这里vim-plug就安装好了。关于这个插件的详细信息以及用法可以参考vim-plug的![github仓库](https://github.com/junegunn/vim-plug)。
-#### 5.2 其他插件安装
+#### 其他插件安装
 　　安装完vim-plug，就可以开始安装其他插件了。本仓库的配置文件.vimrc里面已经添加好了所有需要安装的vim插件，因此在shell里面键入vim，打开vim，在vim里面输入命令“:PlugStatus”可以看到所有插件都处于未安装状态，再输入命令“:PlugInstall”开始安装插件列表的所有插件。这里可能需要几分钟的等待时间。后续我们可以通过“:PlugInstall”、“:PlugStatus”、“:PlugUpdate”来管理我们的插件。</br>
-#### 5.3 YCM插件安装
+#### YCM插件安装
 　　上面这个步骤对几乎所有插件来说就算是安装完了，但是有一个插件例外，那就是YouCompleteMe。这个插件还需要如下的额外步骤，先安装一些依赖库：
 ```
 sudo apt-get install libboost-all-dev
 ```
-##### 5.3.1 简易安装法
+##### 简易安装法
 　　建议安装法就是采用install.py脚本来直接安装，步骤如下：
 ```
 cd ~/.vim/plugged/YouCompleteMe
 ./install.py --clang-completer --go-completer
 ```
 　　这里可能需要一段时间，等待即可。注意，--clang-completer需要先安装clang，由于我们上面已经安装了clang，这里就不同安装了，--go-completer需要先安装golang，golang的安装参考第4节部分。
-##### 5.3.2 手动编译法
+##### 手动编译法
 　　如果上面的简易安装法安装之后ycm不能实现其预期功能，那么可以尝试采用手动编译，步骤如下：
 ```
 mv clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04 clang+llvm
