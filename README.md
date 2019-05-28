@@ -35,6 +35,11 @@ Vim启动：
 <img src="https://github.com/TitenWang/vimrc/blob/master/pics/startify.png" alt=""/><br /><br />
 </div>
 
+插件列表：
+<div align="center">
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/plugin_install.png" alt=""/><br /><br />
+</div>
+
 Keymaps提示：
 <div align="center">
 <img src="https://github.com/TitenWang/vimrc/blob/master/pics/which_key.png" alt=""/><br /><br />
