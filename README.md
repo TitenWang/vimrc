@@ -57,7 +57,7 @@ make linux test
 sudo make install
 ```
 　　执行完上述步骤之后，可以在shell中键入lua来看是否安装成功。
-# Vim安装
+## Vim安装
 　　由于这份vim配置中的部分插件需要vim的版本在8.0以上，因此我们通过源码安装vim的最新版本。具体步骤如下：
 ### 安装语言支持
 ```
