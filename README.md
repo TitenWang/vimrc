@@ -23,10 +23,10 @@
 - [部分插件注意事项](#部分插件注意事项)
     - [vim-gutentags](#vim-gutentags)
     - [YCM](#YCM)
-    - [vim-airline](vim-airline)
+    - [vim-airline](#vim-airline)
     - [ale](#ale)
     - [LeaderF](#LeaderF)
-    - [ctrlsf.vim](#ctrlsf.vim)
+    - [ctrlsf](#ctrlsf)
 - [致谢](#致谢)
 
 ## Vim使用效果
@@ -207,7 +207,7 @@ let g:ale_linters = {
 ### LeaderF
 　　LeaderF rg子命令在进行查找时，需要借助工具rg，因此，如果需要使用LeaderF rg子命令的话，需要安装该工具。我们可以从Ubuntu安装源中进行下载安装，不过不一定是新版本，网址为https://packages.ubuntu.com/cosmic/amd64/ripgrep/download。
 
-### ctrlsf.vim
+### ctrlsf
 　　这个插件的功能和LeaderF rg子命令的功能类似，如果目标机器上面没有安装rg，而安装了ag的话，那么可以用ctrlsf.vim来替代LeaderF rg子命令。工具ag会被ctrlsf.vim作为后台搜索的工具，因此如果要使用ctrlsf.vim的话，需要安装ag。ag的安装方法在[安装系统工具](#安装系统工具)这一节已有描述，可以参考。
  
   
