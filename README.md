@@ -1,3 +1,5 @@
+[TOC]
+
 # vimrc
 参考以下配置：</br>
 &#160; &#160; &#160; &#160;1）https://github.com/yangyangwithgnu/use_vim_as_ide</br>
@@ -5,9 +7,26 @@
 &#160; &#160; &#160; &#160;3）https://github.com/skywind3000/vim</br>
 感谢以上配置仓库的作者！
 
-# vim安装及配置
-　　以下步骤中的操作，均假设在用户主目录下操作。
 
+
+# Vim使用效果
+Vim启动：
+<div align="center">
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/startify.png" alt=""/><br />
+</div>
+
+Keymaps提示：
+<div align="center">
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/which_key.png" alt=""/><br />
+</div>
+
+YCM补全：
+<div align="center">
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/ycm_complete.png" alt=""/><br />
+</div>
+
+# Vim安装及配置
+　　以下步骤中的操作，均假设在用户主目录下操作。
 ## Lua安装
 ### 0. 下载依赖库
 ```
