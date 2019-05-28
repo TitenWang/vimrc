@@ -39,7 +39,7 @@ git config --global user.name TitenWang
 git config --global user.email TitenWang2013@hotmail.com
 ```
 ### 2. 生成ssh key（可选）
-　　由于我们经常需要从github上面下载一些仓库，因此为了后续的可能有的权限问题，我们可以生成ssh key并添加到github当中。
+　　由于我们经常需要从github上面下载一些仓库，因此为了后续的可能有的权限问题，我们可以生成ssh key并添加到github当中。</br>
 　　首先在shell中生成ssh key，采用默认设置，执行如下命令，并一直回车，直到命令结束：
  ```
  ssh-keygen
@@ -83,8 +83,8 @@ tar -xvf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar
 cd clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
 sudo cp -r * /usr/local 
 ```
+　　这样我们就将clang的预编译版本安装到了/usr/local目录下了。一般来说，/usr/local/bin目录已经在系统变量PATH中了，因此这里就不需要修改PATH了。</br>
 　　如果需要使用vim-go来写golang的话，那么还需要安装下golang，这个可以参考golang官方的![安装指南](https://golang.google.cn/doc/install)以及![添加GOPATH](https://golang.google.cn/doc/code.html)等。
-　　这样我们就将clang的预编译版本安装到了/usr/local目录下了。一般来说，/usr/local/bin目录已经在系统变量PATH中了，因此这里就不需要修改PATH了。
 ### 5. vim插件安装,
 　　这个vim配置库中只包含了两个文件，一个是.vimrc，这个文件是vim的配置文件；另一个是.ycm_extra_conf.py，这个文件是YCM使用的，如何使用参考![YCM](https://github.com/Valloric/YouCompleteMe)。将这两个文件放置到用户主目录下即可。
 #### 5.1 安装vim-plug
@@ -116,7 +116,7 @@ cd ycm_build
 cmake -G "Unix Makefiles" -DUSE_SYSTEM_BOOST=ON -DPATH_TO_LLVM_ROOT=~/clang+llvm/ . ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp
 cmake --build . --target ycm_core
 ```
-　　通过上面的两种方法，安装完之后，在~/.vim/plugged/YouCompleteMe/third_party/ycmd目录下会有一个ycm_core.so文件。接着可以在vim试试ycm的强大补全能力。
+　　通过上面的两种方法，安装完之后，在~/.vim/plugged/YouCompleteMe/third_party/ycmd目录下会有一个ycm_core.so文件。接着可以在vim试试ycm的强大补全能力。</br>
 　　到这里，vim及其插件的安装就差不多结束了，由于配置已经存在，直接使用即可。如果需要修改配置，修改.vimrc即可。
   
   
