@@ -1,13 +1,4 @@
-[TOC]
-
-# vimrc
-参考以下配置：</br>
-&#160; &#160; &#160; &#160;1）https://github.com/yangyangwithgnu/use_vim_as_ide</br>
-&#160; &#160; &#160; &#160;2）https://github.com/amix/vimrc</br>
-&#160; &#160; &#160; &#160;3）https://github.com/skywind3000/vim</br>
-感谢以上配置仓库的作者！
-
-
+<h1 align="center">Vim安装及使用指南</h1>
 
 # Vim使用效果
 Vim启动：
@@ -138,7 +129,9 @@ cmake --build . --target ycm_core
 　　通过上面的两种方法，安装完之后，在~/.vim/plugged/YouCompleteMe/third_party/ycmd目录下会有一个ycm_core.so文件。接着可以在vim试试ycm的强大补全能力。</br>
 　　到这里，vim及其插件的安装就差不多结束了，由于配置已经存在，直接使用即可。如果需要修改配置，修改.vimrc即可。
   
-  
-  
-  
-  
+# vimrc
+参考以下配置：</br>
+&#160; &#160; &#160; &#160;1）https://github.com/yangyangwithgnu/use_vim_as_ide</br>
+&#160; &#160; &#160; &#160;2）https://github.com/amix/vimrc</br>
+&#160; &#160; &#160; &#160;3）https://github.com/skywind3000/vim</br>
+感谢以上配置仓库的作者！
