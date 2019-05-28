@@ -117,7 +117,7 @@ cd ~/.vim/plugged/YouCompleteMe
 ./install.py --clang-completer --go-completer
 ```
 　　这里可能需要一段时间，等待即可。注意，--clang-completer需要先安装clang，由于我们上面已经安装了clang，这里就不同安装了，--go-completer需要先安装golang，golang的安装参考第4节部分。
-#### 5.3.2 手动编译法
+##### 5.3.2 手动编译法
 　　如果上面的简易安装法安装之后ycm不能实现其预期功能，那么可以尝试采用手动编译，步骤如下：
 ```
 mv clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04 clang+llvm
