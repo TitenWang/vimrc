@@ -104,12 +104,13 @@ sudo make install
 - 将“export PATH=$PATH:/usr/local/vim/bin”追加到~/.bashrc。</br>
 上述方法选一种即可，追加完之后记得执行source，以让修改生效。接着我们可以在shell中输入“vim --version”来看我们的安装结果，检查是否有“+python3”和“+lua”，如果有的话，说明安装符合我们的预期。
 #### 安装系统工具
-　　由于一些vim插件需要系统工具的支持，如ale需要clang（支持c/c++等）和flake8（支持python），vim-autoformat需要autopep8，因此在安装插件之前我们先将这些系统工具安装一下。
+　　由于一些vim插件需要系统工具的支持，如ale需要clang（支持c/c++等）和flake8（支持python），vim-autoformat需要autopep8，因此在安装插件之前我们先将这些系统工具安装一下。</br>
 　　先安装一些操作起来简单的，如下：
 ```
 sudo apt-get install ctags
 sudo apt-get install build-essential cmake
 sudo apt-get install silversearcher-ag
+sudo apt-get install ripgrep
 sudo apt-get install python3-pip
 pip3 install flake8
 pip3 install autopep8
@@ -175,7 +176,7 @@ flags = [
     '/usr/local/include/c++/v1',
 ]
 ```
-　　flags中省略的那部分关注度不高，主要是'-isystem'以及其后面紧跟着的路径，上述代码中的最后四行，可能会因机器差异而不同，也可以在这个基础上添加其他头文件所在路径。
+　　flags中省略的那部分关注度不高，主要是'-isystem'以及其后面紧跟着的路径，上述代码中的最后四行，可能会因机器差异而不同，也可以在这个基础上添加其他头文件所在路径。</br>
 　　另外，YCM的标签引擎如果开启的话，可以为其添加你所需要补全的头文件对应的tag。在.vimrc文件中有如下三行相关配置：
 ```
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -205,7 +206,7 @@ let g:ale_linters = {
 ```
 　　从上述配置可以看出，我们将c/c++的静态检查交由clang，python的静态检查交由flake8，那么我们就需要安装clang和flake8。这两个的安装方法在前面有说过，如果是按照上述步骤来的话，这里可以不用再操作。
 ### LeaderF
-　　LeaderF rg子命令在进行查找时，需要借助工具rg，因此，如果需要使用LeaderF rg子命令的话，需要安装该工具。我们可以从Ubuntu安装源中进行下载安装，不过不一定是新版本，网址为https://packages.ubuntu.com/cosmic/amd64/ripgrep/download。
+　　LeaderF rg子命令在进行查找时，需要借助工具rg，因此，如果需要使用LeaderF rg子命令的话，需要安装该工具。我们可以从Ubuntu安装源中进行下载安装，不过不一定是新版本，rg的安装方法在[安装系统工具](#安装系统工具)这一节已有描述，可以参考。
 
 ### ctrlsf
 　　这个插件的功能和LeaderF rg子命令的功能类似，如果目标机器上面没有安装rg，而安装了ag的话，那么可以用ctrlsf.vim来替代LeaderF rg子命令。工具ag会被ctrlsf.vim作为后台搜索的工具，因此如果要使用ctrlsf.vim的话，需要安装ag。ag的安装方法在[安装系统工具](#安装系统工具)这一节已有描述，可以参考。
