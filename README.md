@@ -5,6 +5,9 @@
 &#160; &#160; &#160; &#160;3）https://github.com/skywind3000/vim</br>
 感谢以上配置仓库的作者！
 
+# vim安装及配置
+　　以下步骤中的操作，均假设在用户主目录下操作。
+
 ## Lua安装
 ### 0. 下载依赖库
 ```
@@ -80,4 +83,43 @@ tar -xvf clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar
 cd clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04
 sudo cp -r * /usr/local 
 ```
+　　如果需要使用vim-go来写golang的话，那么还需要安装下golang，这个可以参考golang官方的![安装指南](https://golang.google.cn/doc/install)以及![添加GOPATH](https://golang.google.cn/doc/code.html)等。
 　　这样我们就将clang的预编译版本安装到了/usr/local目录下了。一般来说，/usr/local/bin目录已经在系统变量PATH中了，因此这里就不需要修改PATH了。
+### 5. vim插件安装,
+　　这个vim配置库中只包含了两个文件，一个是.vimrc，这个文件是vim的配置文件；另一个是.ycm_extra_conf.py，这个文件是YCM使用的，如何使用参考![YCM](https://github.com/Valloric/YouCompleteMe)。将这两个文件放置到用户主目录下即可。
+#### 5.1 安装vim-plug
+　　通过上面的步骤，我们已经安装好了vim，以及vim插件可能会用到的一些系统工具，我们现在要开始安装vim插件，来配置vim了。vim插件很多，这里采用了插件管理器vim-plug来管理插件。插件管理器vim-plug本身也是一个vim插件，在安装其他插件之前，我们需要先安装一下vim-plug。命令如下：
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+　　执行完上面这个命令之后，在～/.vim/autoload/目录下面能看到plug.vim，这个文件就是vim-plug了。到这里vim-plug就安装好了。关于这个插件的详细信息以及用法可以参考vim-plug的![github仓库](https://github.com/junegunn/vim-plug)。
+#### 5.2 其他插件安装
+　　安装完vim-plug，就可以开始安装其他插件了。本仓库的配置文件.vimrc里面已经添加好了所有需要安装的vim插件，因此在shell里面键入vim，打开vim，在vim里面输入命令“:PlugStatus”可以看到所有插件都处于未安装状态，再输入命令“:PlugInstall”开始安装插件列表的所有插件。这里可能需要几分钟的等待时间。后续我们可以通过“:PlugInstall”、“:PlugStatus”、“:PlugUpdate”来管理我们的插件。</br>
+#### 5.3 YCM插件安装
+　　上面这个步骤对几乎所有插件来说就算是安装完了，但是有一个插件例外，那就是YouCompleteMe。这个插件还需要如下的额外步骤，先安装一些依赖库：
+```
+sudo apt-get install libboost-all-dev
+```
+##### 5.3.1 简易安装法
+　　建议安装法就是采用install.py脚本来直接安装，步骤如下：
+```
+cd ~/.vim/plugged/YouCompleteMe
+./install.py --clang-completer --go-completer
+```
+　　这里可能需要一段时间，等待即可。注意，--clang-completer需要先安装clang，由于我们上面已经安装了clang，这里就不同安装了，--go-completer需要先安装golang，golang的安装参考第4节部分。
+#### 5.3.2 手动编译法
+　　如果上面的简易安装法安装之后ycm不能实现其预期功能，那么可以尝试采用手动编译，步骤如下：
+```
+mv clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04 clang+llvm
+mkdir ycm_build
+cd ycm_build
+cmake -G "Unix Makefiles" -DUSE_SYSTEM_BOOST=ON -DPATH_TO_LLVM_ROOT=~/clang+llvm/ . ~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp
+cmake --build . --target ycm_core
+```
+　　通过上面的两种方法，安装完之后，在~/.vim/plugged/YouCompleteMe/third_party/ycmd目录下会有一个ycm_core.so文件。接着可以在vim试试ycm的强大补全能力。
+　　到这里，vim及其插件的安装就差不多结束了，由于配置已经存在，直接使用即可。如果需要修改配置，修改.vimrc即可。
+  
+  
+  
+  
+  
