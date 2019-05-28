@@ -29,7 +29,7 @@
 直接将库上的settings.json替换到上述路径下，重启VSCode。
 ## 部分插件说明
 ### LaTeX-Workshop
-　　LaTeX Workshop需要配合后端的latex编译器才能进行完整的工作。因此，需要安装TeXLive。这里选择安装当前的最新版本TeXLive 2019。安装
+　　LaTeX Workshop需要配合后端的LaTeX编译器才能进行完整的工作。因此，需要安装TeXLive。这里选择安装当前的最新版本TeXLive 2019。安装
 可以参考TeXLive的![官网](http://tug.org/texlive/acquire-netinstall.html)。步骤如下：
 ```
 wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -37,5 +37,7 @@ tar -zxvf install-tl-unx.tar.gz
 cd install-tl-20190525/
 sudo ./install-tl
 ```
-　　需要说明的是，install-tl-unx.tar.gz压缩包解压之后得到的文件是install-tl-20190525。
+　　需要说明的是，install-tl-unx.tar.gz压缩包解压之后得到的文件是install-tl-20190525。默认情况下TeXLive是安装在/usr/local/texlive
+目录下的。为了让VSCode可以找到LaTeX编译器，需要将/usr/local/texlive/2019/bin/x86_64-linux追加上系统变量PATH中，即将“export PATH=
+$PATH:/usr/local/texlive/2019/bin/x86_64-linux”追加到/etc/profile文件中，然后执行“source /etc/profile”以让修改生效。
     
