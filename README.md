@@ -3,17 +3,17 @@
 # Vim使用效果
 Vim启动：
 <div align="center">
-<img src="https://github.com/TitenWang/vimrc/blob/master/pics/startify.png" alt=""/><br />
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/startify.png" alt=""/><br /><br />
 </div>
 
 Keymaps提示：
 <div align="center">
-<img src="https://github.com/TitenWang/vimrc/blob/master/pics/which_key.png" alt=""/><br />
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/which_key.png" alt=""/><br /><br />
 </div>
 
 YCM补全：
 <div align="center">
-<img src="https://github.com/TitenWang/vimrc/blob/master/pics/ycm_complete.png" alt=""/><br />
+<img src="https://github.com/TitenWang/vimrc/blob/master/pics/ycm_complete.png" alt=""/><br /><br />
 </div>
 
 # Vim安装及配置
