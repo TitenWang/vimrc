@@ -1,14 +1,14 @@
 
 <h1 align="center">Vim安装及使用指南</h1>
 
-#### Table of contents
+#### 目录
 - [Vim使用效果](#Vim使用效果)
 - [Vim安装及配置](#Vim安装及配置)
     - [Lua安装](#Lua安装)
         - [0. 下载依赖库](#0.-下载依赖库)
         - [1. 下载安装包](#1.-下载安装包)
         - [2. 安装lua](#2.-安装lua)
-- [Vim安装](#Vim安装)
+    - [Vim安装](#Vim安装)
         - [0. 安装语言支持](#0.-安装语言支持)
         - [1. 安装git及配置](#1.-安装git及配置)
         - [2. 生成ssh key（可选）](#2.-生成ssh-key（可选）)
@@ -20,7 +20,7 @@
             - [5.3 YCM插件安装](#5.3-YCM插件安装)
                 - [5.3.1 简易安装法](#5.3.1-简易安装法)
                 - [5.3.2 手动编译法](#5.3.2-手动编译法)
-- [vimrc](#vimrc)
+- [致谢](#致谢)
 
 # Vim使用效果
 Vim启动：
@@ -151,7 +151,7 @@ cmake --build . --target ycm_core
 　　通过上面的两种方法，安装完之后，在~/.vim/plugged/YouCompleteMe/third_party/ycmd目录下会有一个ycm_core.so文件。接着可以在vim试试ycm的强大补全能力。</br>
 　　到这里，vim及其插件的安装就差不多结束了，由于配置已经存在，直接使用即可。如果需要修改配置，修改.vimrc即可。
   
-# vimrc
+# 致谢
 参考以下配置：</br>
 &#160; &#160; &#160; &#160;1）https://github.com/yangyangwithgnu/use_vim_as_ide</br>
 &#160; &#160; &#160; &#160;2）https://github.com/amix/vimrc</br>
