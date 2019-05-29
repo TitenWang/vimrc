@@ -5,6 +5,7 @@
 - [插件配置](#插件配置)
 - [部分插件说明](#部分插件说明)
   - [LaTeX-Workshop](#LaTeX-Workshop)
+  - [Go](#Go)
 
 
 ## 插件列表
@@ -24,6 +25,7 @@
 - Beautify
 - Markdown All in One
 - Python
+- Todo Tree
 ## 插件配置
 　　VSCode的插件配置在~/.config/Code/User/settings.json文件中。VSCode的插件安装及其配置相较Vim来说比较简单，安装完上述插件后，
 直接将库上的settings.json替换到上述路径下，重启VSCode。
@@ -40,4 +42,6 @@ sudo ./install-tl
 　　需要说明的是，install-tl-unx.tar.gz压缩包解压之后得到的文件是install-tl-20190525。默认情况下TeXLive是安装在/usr/local/texlive
 目录下的。为了让VSCode可以找到LaTeX编译器，需要将/usr/local/texlive/2019/bin/x86_64-linux追加上系统变量PATH中，即将“export PATH=
 $PATH:/usr/local/texlive/2019/bin/x86_64-linux”追加到/etc/profile文件中，然后执行“source /etc/profile”以让修改生效。
+### Go
+　　Go插件在后台需要一些golang工具来辅助，大部分工具是可以自动下载成功的，有部分不能下载成功的工具，可以按照本仓库master分之的README.md中的![相关说明](https://github.com/TitenWang/vimrc/#vim-go)进行补充下载。
     
