@@ -1,16 +1,18 @@
 {
-  // Prettier-Code formatter
   "editor.formatOnSave": true,
 
-  // vscode-vim
+  "files.encoding": "utf8",
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+
+  "go.formatTool": "goimports",
+
   "vim.leader": ";",
   "vim.easymotion": true,
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
 
-  // latex-workshop
-  "latex-workshop.latex.recipes": [
-    {
+  "latex-workshop.latex.recipes": [{
       "name": "xelatex",
       "tools": ["xelatex"]
     },
@@ -27,8 +29,7 @@
       "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
     }
   ],
-  "latex-workshop.latex.tools": [
-    {
+  "latex-workshop.latex.tools": [{
       "name": "latexmk",
       "command": "latexmk",
       "args": [
@@ -88,6 +89,6 @@
     "*.fdb_latexmk"
   ],
 
-  // vscode-icons
-  "workbench.iconTheme": "vscode-icons"
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "One Dark Pro",
 }
