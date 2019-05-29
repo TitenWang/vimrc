@@ -27,6 +27,7 @@
     - [ale](#ale)
     - [LeaderF](#LeaderF)
     - [ctrlsf](#ctrlsf)
+    - [vim-go](#vim-go)
 - [致谢](#致谢)
 
 ## Vim使用效果
@@ -215,7 +216,25 @@ let g:ale_linters = {
 
 ### ctrlsf
 　　这个插件的功能和LeaderF rg子命令的功能类似，如果目标机器上面没有安装rg，而安装了ag的话，那么可以用ctrlsf.vim来替代LeaderF rg子命令。工具ag会被ctrlsf.vim作为后台搜索的工具，因此如果要使用ctrlsf.vim的话，需要安装ag。ag的安装方法在[安装系统工具](#安装系统工具)这一节已有描述，可以参考。
- 
+
+### vim-go
+　　这个插件主要是为写golang服务的，也需要一些golang工具来进行辅助，对该插件所依赖的golang工具，通过命令":GoInstallBinaries"可以下载，但由于一些现实原因，有部分工具不能下载成功，这个时候我们可以通过手动下载来实现，步骤如下：
+```
+git clone https://github.com/golang/tools.git $GOPATH/src/github.com/golang/tools
+git clone https://github.com/golang/lint.git $GOPATH/src/github.com/golang/lint
+cd $GOPATH/src/github.com/golang/
+cp -r * $GOPATH/src/golang.org/x/
+```
+　　执行完上述这些操作之后，有两种方法来安装剩余的那部分工具：
+- 方法一：用“go get”命令从github.com上面下载并安装具体工具，对于在本地已经下载了源码的工具，用“go install”命令直接进行安装。例如对于goimports工具，我们刚刚已经下载了其源码，路径为golang.org/x/tools/cmd/goimports。我们可以通过如下方式安装：
+```
+go install golang.org/x/tools/cmd/goimports
+```
+　　对于errcheck，我们没有从github下载它的源码，它的网址为https://github.com/kisielk/errcheck。我们可以通过如下方式安装：
+```
+go get github.com/kisielk/errcheck
+```
+- 方法二：打开vim，手动再执行“:GoInstallBinaries”命令，vim-go会负责下载剩余那部分工具。
   
 ## 致谢
 参考以下配置：</br>
