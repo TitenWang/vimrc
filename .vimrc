@@ -117,6 +117,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-startify'
+Plug 'voldikss/vim-translate-me'
 "Plug 'lervag/vimtex'
 call plug#end()
 
@@ -578,13 +579,16 @@ let g:which_key_map[';'] = {
 \}
 
 let g:which_key_map.t = {
-    \'name': '+tab/tag',
+    \'name': '+tab/tag/translate',
     \'m': 'new-tab',
     \'c': 'close-tab',
     \'n': 'go-to-next-tab',
     \'p': 'go-to-previous-tab',
     \'b': 'go-to-previous-tag',
     \'a': 'go-to-next-tag',
+    \'t': 'translate-word-under-cursor',
+    \'w': 'translate-word-under-cusor-in-popup-window',
+    \'r': 'repalce-word-under-cursor-with-translation',
 \}
 
 let g:which_key_map.m = {
@@ -646,6 +650,18 @@ let g:startify_lists = [
     \ { 'type': 'bookmarks', 'header': ['   Bookmarks:']},
 \]
 
+"vim-translate-me插件配置
+let g:vtm_default_mapping = 0
+"<Leader>t 翻译光标下的文本，在命令行回显翻译内容
+nmap <silent> <Leader>tt <Plug>Translate
+vmap <silent> <Leader>tt <Plug>TranslateV
+"Leader>w 翻译光标下的文本，在窗口中显示翻译内容
+nmap <silent> <Leader>tw <Plug>TranslateW
+vmap <silent> <Leader>tw <Plug>TranslateWV
+"Leader>r 替换光标下的文本为翻译内容
+nmap <silent> <Leader>tr <Plug>TranslateR
+vmap <silent> <Leader>tr <Plug>TranslateRV
+
 "vimtex插件配置
 "let g:tex_flavor='latex'
 "let g:vimtex_view_method='zathura'
@@ -672,7 +688,7 @@ noremap <leader>pp "+p
 "定义快捷键关闭当前分割窗口
 noremap <leader>qc :q<cr>
 "定义快捷键保存所有窗口内容并退出vim
-noremap <leader>wq :wa<cr>:q<cr>
+noremap <leader>wq :wa<cr>:qa!<cr>
 "不做保存直接退出vim
 noremap <leader>qa :qa!<cr>
 
