@@ -91,4 +91,14 @@
 
   "workbench.iconTheme": "vscode-icons",
   "workbench.colorTheme": "One Dark Pro",
+  "C_Cpp.updateChannel": "Insiders",
+  "C_Cpp.clang_format_fallbackStyle": "LLVM",
+  "C_Cpp.clang_format_style": "LLVM",
+  "C_Cpp.default.cStandard": "c99",
+  "C_Cpp.default.cppStandard": "c++17",
+  "terminal.integrated.cursorStyle": "line",
+  "editor.fontSize": 16,
+  "terminal.integrated.confirmOnExit": true,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.fontWeightBold": "normal",
 }
